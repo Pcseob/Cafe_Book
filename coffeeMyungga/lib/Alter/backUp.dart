@@ -13,6 +13,7 @@ class BackUpPage extends StatefulWidget {
 }
 
 class _BackUpPageState extends State<BackUpPage> {
+  ScrollController scrollController;
   List<CakeData> cakeList = [];
   bool isDone;
   bool hasError;
@@ -21,6 +22,7 @@ class _BackUpPageState extends State<BackUpPage> {
     super.initState();
     isDone = false;
     hasError = false;
+    scrollController = ScrollController();
   }
 
   @override
@@ -31,75 +33,83 @@ class _BackUpPageState extends State<BackUpPage> {
     // delete();
     return Scaffold(
         body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RaisedButton(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 30),
+              child: RaisedButton(
+                  onPressed: () {
+                    storeData();
+                    setState(() {});
+                  },
+                  child: Text("BackUp")),
+            ),
+            RaisedButton(
               onPressed: () {
-                storeData();
-                setState(() {});
+                deleteBackUpFile();
               },
-              child: Text("BackUp")),
-          RaisedButton(
-            onPressed: () {
-              deleteBackUpFile();
-            },
-            child: Text("DELETED"),
-          ),
-          RaisedButton(
-            onPressed: () {
-              toFireBase();
-            },
-            child: Text("To Firebase"),
-          ),
-          FutureBuilder(
-            future: checkBackUpFile(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                case ConnectionState.waiting:
-                  return CupertinoActivityIndicator();
-                default:
-                  if (snapshot.hasError) {
-                    return Center(
-                        child: Column(
-                      children: [
-                        Text("Something Error"),
-                        Text(snapshot.error.toString()),
-                      ],
-                    ));
-                  } else {
-                    if (snapshot.hasData) {
-                      return Text(snapshot.data ? "Exist" : "Empty");
+              child: Text("DELETED"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                toFireBase();
+              },
+              child: Text("To Firebase"),
+            ),
+            FutureBuilder(
+              future: checkBackUpFile(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    return CupertinoActivityIndicator();
+                  default:
+                    if (snapshot.hasError) {
+                      return Center(
+                          child: Column(
+                        children: [
+                          Text("Something Error"),
+                          Text(snapshot.error.toString()),
+                        ],
+                      ));
+                    } else {
+                      if (snapshot.hasData) {
+                        return Text(
+                          snapshot.data ?? "Empty",
+                          style: TextStyle(fontSize: 10),
+                        );
+                      }
                     }
-                  }
-              }
-            },
-          )
-          //         FutureBuilder(
-          //   future: storeData(),
-          //   builder: (context, snapshot) {
-          //         switch (snapshot.connectionState) {
-          //           case ConnectionState.none:
-          //           case ConnectionState.waiting:
-          //             return Center(child: CupertinoActivityIndicator());
-          //           default:
-          //             if (snapshot.hasError) {
-          //               return Center(
-          //                   child: Column(
-          //                 children: [
-          //                   Text("Something Error"),
-          //                   Text(snapshot.error.toString()),
-          //                 ],
-          //               ));
-          //             } else {
-          //               readCounter();
-          //               return Center(child: Text("Done"));
-          //             }
-          //         }
-          //   },
-          // ),
-        ],
+                }
+              },
+            )
+            //         FutureBuilder(
+            //   future: storeData(),
+            //   builder: (context, snapshot) {
+            //         switch (snapshot.connectionState) {
+            //           case ConnectionState.none:
+            //           case ConnectionState.waiting:
+            //             return Center(child: CupertinoActivityIndicator());
+            //           default:
+            //             if (snapshot.hasError) {
+            //               return Center(
+            //                   child: Column(
+            //                 children: [
+            //                   Text("Something Error"),
+            //                   Text(snapshot.error.toString()),
+            //                 ],
+            //               ));
+            //             } else {
+            //               readCounter();
+            //               return Center(child: Text("Done"));
+            //             }
+            //         }
+            //   },
+            // ),
+          ],
+        ),
       ),
     ));
   }
@@ -143,9 +153,9 @@ class _BackUpPageState extends State<BackUpPage> {
   }
 
   checkBackUpFile() async {
-    final path = await _localFile;
-    print(File('$path/test.txt').existsSync().toString());
-    return File('$path/test.txt').exists();
+    final file = await _localFile;
+    // print(File('$path/test.txt').existsSync().toString());
+    return await file.readAsString();
   }
 
   Future<File> writeCounter(String counter) async {
@@ -188,7 +198,10 @@ class _BackUpPageState extends State<BackUpPage> {
       final file = await _localFile;
 
       // 파일 읽기.
+
       await file.delete();
+
+      setState(() {});
 
       // return int.parse(contents);
       print("Deleted");
