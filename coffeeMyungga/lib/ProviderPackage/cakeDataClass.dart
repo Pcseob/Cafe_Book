@@ -59,7 +59,7 @@ class CakeData {
     if (this.pickUpDate == String)
       this.pickUpDate = Timestamp.fromDate(f.parse(pickUpDate));
 
-    await FirebaseFirestore.instance.collection("temp").add({
+    await FirebaseFirestore.instance.collection("Cake").add({
       "orderDate": orderDate,
       "pickUpDate": pickUpDate,
       "cakeCategory": cakeCategory,

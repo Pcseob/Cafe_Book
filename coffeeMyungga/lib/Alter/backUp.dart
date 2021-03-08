@@ -41,8 +41,9 @@ class _BackUpPageState extends State<BackUpPage> {
               margin: EdgeInsets.only(top: 30),
               child: RaisedButton(
                   onPressed: () {
-                    storeData();
-                    setState(() {});
+                    return null;
+                    // storeData();
+                    // setState(() {});
                   },
                   child: Text("BackUp")),
             ),
@@ -54,7 +55,8 @@ class _BackUpPageState extends State<BackUpPage> {
             ),
             RaisedButton(
               onPressed: () {
-                toFireBase();
+                // toFireBase();
+                return null;
               },
               child: Text("To Firebase"),
             ),
@@ -75,6 +77,7 @@ class _BackUpPageState extends State<BackUpPage> {
                         ],
                       ));
                     } else {
+                      print(snapshot.data);
                       if (snapshot.hasData) {
                         return Text(
                           snapshot.data ?? "Empty",
