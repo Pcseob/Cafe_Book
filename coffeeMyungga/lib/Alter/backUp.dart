@@ -14,6 +14,7 @@ class BackUpPage extends StatefulWidget {
 
 class _BackUpPageState extends State<BackUpPage> {
   ScrollController scrollController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   List<CakeData> cakeList = [];
   bool isDone;
   bool hasError;
@@ -32,89 +33,98 @@ class _BackUpPageState extends State<BackUpPage> {
     // storeData();
     // delete();
     return Scaffold(
+        key: scaffoldKey,
         body: Center(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 30),
-              child: RaisedButton(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 30),
+                  child: RaisedButton(
+                      onPressed: () {
+                        scaffoldKey.currentState.showSnackBar(SnackBar(
+                          content: Text("현재는 비활성화 되어있습니다."),
+                        ));
+                        return null;
+                        // storeData();
+                        // setState(() {});
+                      },
+                      child: Text("BackUp")),
+                ),
+                RaisedButton(
                   onPressed: () {
-                    return null;
-                    // storeData();
-                    // setState(() {});
+                    scaffoldKey.currentState.showSnackBar(SnackBar(
+                      content: Text("현재는 비활성화 되어있습니다."),
+                    ));
+                    // deleteBackUpFile();
                   },
-                  child: Text("BackUp")),
-            ),
-            RaisedButton(
-              onPressed: () {
-                deleteBackUpFile();
-              },
-              child: Text("DELETED"),
-            ),
-            RaisedButton(
-              onPressed: () {
-                // toFireBase();
-                return null;
-              },
-              child: Text("To Firebase"),
-            ),
-            FutureBuilder(
-              future: checkBackUpFile(),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                  case ConnectionState.waiting:
-                    return CupertinoActivityIndicator();
-                  default:
-                    if (snapshot.hasError) {
-                      return Center(
-                          child: Column(
-                        children: [
-                          Text("Something Error"),
-                          Text(snapshot.error.toString()),
-                        ],
-                      ));
-                    } else {
-                      print(snapshot.data);
-                      if (snapshot.hasData) {
-                        return Text(
-                          snapshot.data ?? "Empty",
-                          style: TextStyle(fontSize: 10),
-                        );
-                      }
+                  child: Text("DELETED"),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    // toFireBase();
+                    scaffoldKey.currentState.showSnackBar(SnackBar(
+                      content: Text("현재는 비활성화 되어있습니다."),
+                    ));
+                  },
+                  child: Text("To Firebase"),
+                ),
+                FutureBuilder(
+                  future: checkBackUpFile(),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                      case ConnectionState.waiting:
+                        return CupertinoActivityIndicator();
+                      default:
+                        if (snapshot.hasError) {
+                          return Center(
+                              child: Column(
+                            children: [
+                              Text("Something Error"),
+                              Text(snapshot.error.toString()),
+                            ],
+                          ));
+                        } else {
+                          print(snapshot.data);
+                          if (snapshot.hasData) {
+                            return Text(
+                              snapshot.data ?? "Empty",
+                              style: TextStyle(fontSize: 10),
+                            );
+                          }
+                        }
                     }
-                }
-              },
-            )
-            //         FutureBuilder(
-            //   future: storeData(),
-            //   builder: (context, snapshot) {
-            //         switch (snapshot.connectionState) {
-            //           case ConnectionState.none:
-            //           case ConnectionState.waiting:
-            //             return Center(child: CupertinoActivityIndicator());
-            //           default:
-            //             if (snapshot.hasError) {
-            //               return Center(
-            //                   child: Column(
-            //                 children: [
-            //                   Text("Something Error"),
-            //                   Text(snapshot.error.toString()),
-            //                 ],
-            //               ));
-            //             } else {
-            //               readCounter();
-            //               return Center(child: Text("Done"));
-            //             }
-            //         }
-            //   },
-            // ),
-          ],
-        ),
-      ),
-    ));
+                  },
+                )
+                //         FutureBuilder(
+                //   future: storeData(),
+                //   builder: (context, snapshot) {
+                //         switch (snapshot.connectionState) {
+                //           case ConnectionState.none:
+                //           case ConnectionState.waiting:
+                //             return Center(child: CupertinoActivityIndicator());
+                //           default:
+                //             if (snapshot.hasError) {
+                //               return Center(
+                //                   child: Column(
+                //                 children: [
+                //                   Text("Something Error"),
+                //                   Text(snapshot.error.toString()),
+                //                 ],
+                //               ));
+                //             } else {
+                //               readCounter();
+                //               return Center(child: Text("Done"));
+                //             }
+                //         }
+                //   },
+                // ),
+              ],
+            ),
+          ),
+        ));
   }
 
   Future storeData() async {
