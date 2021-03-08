@@ -42,7 +42,7 @@ dependencies:
   fl_chart: ^0.12.2
   date_util: ^0.1.4
   pull_to_refresh: 1.6.3
-  
+  path_provider: ^1.6.27
 
 
 

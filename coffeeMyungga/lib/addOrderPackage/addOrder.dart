@@ -339,7 +339,7 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
         payInStore: payInStore,
         pickUpStatus: pickUpStatus,
         cakeCount: cakeCount);
-    await data.toFireStore(loadDialogCallback);
+    await data.toFireStore(callback: loadDialogCallback);
   }
 
   navigatorPopAlertDialog() async {

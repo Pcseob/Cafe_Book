@@ -29,7 +29,7 @@ class CakeData {
   final bool payStatus;
   final bool pickUpStatus;
   final int cakeCount;
-  final bool decoStatus;
+  // final bool decoStatus;
   final bool payInStore;
   final bool payInCash;
 
@@ -49,15 +49,17 @@ class CakeData {
       this.pickUpStatus,
       this.documentId,
       this.cakeCount,
-      this.decoStatus,
+      // this.decoStatus,
       this.payInCash,
       this.payInStore});
 
-  Future toFireStore(callback) async {
-    this.orderDate = Timestamp.fromDate(f.parse(orderDate));
-    this.pickUpDate = Timestamp.fromDate(f.parse(pickUpDate));
+  Future toFireStore({Function callback}) async {
+    if (this.orderDate == String)
+      this.orderDate = Timestamp.fromDate(f.parse(orderDate));
+    if (this.pickUpDate == String)
+      this.pickUpDate = Timestamp.fromDate(f.parse(pickUpDate));
 
-    await FirebaseFirestore.instance.collection("Cake").add({
+    await FirebaseFirestore.instance.collection("temp").add({
       "orderDate": orderDate,
       "pickUpDate": pickUpDate,
       "cakeCategory": cakeCategory,
@@ -72,9 +74,9 @@ class CakeData {
       "payInStore": payInStore ?? false,
       "pickUpStatus": pickUpStatus ?? false,
       "cakeCount": cakeCount,
-      "decoStatus": decoStatus ?? false,
+      // "decoStatus": decoStatus ?? false,
     }).then((value) {
-      callback();
+      if (callback != null) callback();
     });
   }
 
@@ -97,7 +99,7 @@ class CakeData {
       "payInStore": payInStore ?? false,
       "pickUpStatus": pickUpStatus ?? false,
       "cakeCount": cakeCount,
-      "decoStatus": decoStatus ?? false,
+      // "decoStatus": decoStatus ?? false,
     }).then((value) {});
   }
 
@@ -120,7 +122,7 @@ class CakeData {
       "payInStore": payInStore ?? false,
       "pickUpStatus": pickUpStatus ?? false,
       "cakeCount": cakeCount,
-      "decoStatus": decoStatus ?? false,
+      // "decoStatus": decoStatus ?? false,
     }).then((value) {
       callback();
     });
@@ -132,25 +134,90 @@ class CakeData {
   }
 
   factory CakeData.fromFireStore(DocumentSnapshot snapshot) {
-    var _cakeData = snapshot.data();
+    var cakeData = snapshot.data();
     return CakeData(
-        cakeCategory: _cakeData["cakeCategory"] ?? '',
-        cakeCount: _cakeData["cakeCount"] ?? 1,
-        cakePrice: _cakeData["cakePrice"] ?? '',
-        cakeSize: _cakeData["cakeSize"] ?? '',
-        customerName: _cakeData["customerName"],
-        customerPhone: _cakeData["customerPhone"],
-        documentId: snapshot.id,
-        orderDate: _cakeData["orderDate"].toDate(),
-        partTimer: _cakeData["partTimer"] ?? '',
-        payStatus: _cakeData["payStatus"],
-        payInCash: _cakeData["payInCash"] ?? false,
-        payInStore: _cakeData["payInStore"] ?? false,
-        pickUpDate: _cakeData["pickUpDate"].toDate(),
-        pickUpStatus: _cakeData["pickUpStatus"] ?? false,
-        remark: _cakeData["remark"] ?? '',
-        decoStatus: _cakeData["decoStatus"] ?? false);
+      cakeCategory: cakeData["cakeCategory"] ?? '',
+      cakeCount: cakeData["cakeCount"] ?? 1,
+      cakePrice: cakeData["cakePrice"] ?? '',
+      cakeSize: cakeData["cakeSize"] ?? '',
+      customerName: cakeData["customerName"],
+      customerPhone: cakeData["customerPhone"],
+      documentId: snapshot.id,
+      orderDate: cakeData["orderDate"].toDate(),
+      partTimer: cakeData["partTimer"] ?? '',
+      payStatus: cakeData["payStatus"],
+      payInCash: cakeData["payInCash"] ?? false,
+      payInStore: cakeData["payInStore"] ?? false,
+      pickUpDate: cakeData["pickUpDate"].toDate(),
+      pickUpStatus: cakeData["pickUpStatus"] ?? false,
+      remark: cakeData["remark"] ?? '',
+      // decoStatus: cakeData["decoStatus"] ?? false
+    );
   }
+
+  factory CakeData.fromBackUpToFireStore(Map cakeData) {
+    return CakeData(
+      cakeCategory: cakeData["cakeCategory"] ?? '',
+      cakeCount: int.parse(cakeData["cakeCount"]),
+      cakePrice: int.parse(cakeData["cakePrice"]),
+      cakeSize: cakeData["cakeSize"] ?? '',
+      customerName: cakeData["customerName"],
+      customerPhone: cakeData["customerPhone"],
+      documentId: cakeData["id"],
+      orderDate: DateFormat("yyyy-MM-dd hh:mm:ss").parse(cakeData["orderDate"]),
+      partTimer: cakeData["partTimer"] ?? '',
+      payStatus: cakeData["payStatus"].toLowerCase() == 'true' ? true : false,
+      // payInCash: cakeData["payInCash"] ?? false,
+      // payInStore: cakeData["payInStore"] ?? false,
+      pickUpDate:
+          DateFormat("yyyy-MM-dd hh:mm:ss").parse(cakeData["pickUpDate"]),
+      pickUpStatus: cakeData["pickUpStatus"] ?? false,
+      remark: cakeData["remark"] ?? '',
+      // decoStatus: cakeData["decoStatus"] ?? false
+    );
+  }
+  //BackUp을 위해서 String 으로 Convert
+  //Parsing 용이하기 위해 ? & = 사용
+  String get cakeDataToParseString =>
+      "?cakeCategory=$cakeCategory&cakeCount=$cakeCount&cakePrice=$cakePrice&cakeSize=$cakeSize&customerName=$customerName&customerPhone=$customerPhone&documentId=$documentId&orderDate=$orderDate&partTimer=$partTimer&pickUpDate=$pickUpDate&pickUpStatus=$pickUpStatus&remark=$remark&payStatus=true";
+  factory CakeData.fromStringCakeDataToCakeData(String data) {
+    Map<String, String> resultMap = {};
+    if (data != null) if (data != '') {
+      List<String> splitedData = data.split('&');
+      splitedData.forEach((element) {
+        List secondSplited = element.split('=');
+        resultMap.addAll({secondSplited[0]: secondSplited[1]});
+        // result.add({lastSplited[0]: lastSplited[1]});
+      });
+      return CakeData(
+        cakeCategory: resultMap["cakeCategory"] ?? '',
+        cakeCount: int.parse(resultMap["cakeCount"]),
+        cakePrice: int.parse(resultMap["cakePrice"]),
+        cakeSize: resultMap["cakeSize"] ?? '',
+        customerName: resultMap["customerName"],
+        customerPhone: resultMap["customerPhone"],
+        documentId: resultMap["id"],
+        orderDate:
+            DateFormat("yyyy-MM-dd hh:mm:ss").parse(resultMap["orderDate"]),
+        partTimer: resultMap["partTimer"] ?? '',
+        payStatus:
+            resultMap["payStatus"].toLowerCase() == 'true' ? true : false,
+        // payInCash: cakeData["payInCash"] ?? false,
+        // payInStore: cakeData["payInStore"] ?? false,
+        pickUpDate:
+            DateFormat("yyyy-MM-dd hh:mm:ss").parse(resultMap["pickUpDate"]),
+        pickUpStatus:
+            resultMap["pickUpStatus"].toLowerCase() == 'true' ? true : false,
+        remark: resultMap["remark"] ?? '',
+        // decoStatus: cakeData["decoStatus"] ?? false
+      );
+    } else
+      return null;
+    else
+      return null;
+  }
+  // return int.parse(contents);
+
 }
 
 class CakeDataOrder extends CakeData {
@@ -178,11 +245,11 @@ class CakeDataOrder extends CakeData {
             cakeSize: cakeSize,
             customerName: customerName,
             customerPhone: customerPhone,
-            decoStatus: decoStatus,
+            // decoStatus: decoStatus,
             documentId: documentId,
             orderDate: orderDate,
             partTimer: partTimer,
-            payStatus: payStatus,
+            // payStatus: payStatus,
             pickUpDate: pickUpDate,
             pickUpStatus: pickUpStatus,
             remark: remark,
@@ -236,11 +303,11 @@ class CakeDataPickUp extends CakeData {
           cakeSize: cakeSize,
           customerName: customerName,
           customerPhone: customerPhone,
-          decoStatus: decoStatus,
+          // decoStatus: decoStatus,
           documentId: documentId,
           orderDate: orderDate,
           partTimer: partTimer,
-          payStatus: payStatus,
+          // payStatus: payStatus,
           pickUpDate: pickUpDate,
           pickUpStatus: pickUpStatus,
           remark: remark,
@@ -295,11 +362,11 @@ class CakeDataCalendarPickUp extends CakeData {
             cakeSize: cakeSize,
             customerName: customerName,
             customerPhone: customerPhone,
-            decoStatus: decoStatus,
+            // decoStatus: decoStatus,
             documentId: documentId,
             orderDate: orderDate,
             partTimer: partTimer,
-            payStatus: payStatus,
+            // payStatus: payStatus,
             pickUpDate: pickUpDate,
             pickUpStatus: pickUpStatus,
             payInStore: payInStore,
@@ -352,11 +419,11 @@ class CakeDataCalendarOrder extends CakeData {
             cakeSize: cakeSize,
             customerName: customerName,
             customerPhone: customerPhone,
-            decoStatus: decoStatus,
+            // decoStatus: decoStatus,
             documentId: documentId,
             orderDate: orderDate,
             partTimer: partTimer,
-            payStatus: payStatus,
+            // payStatus: payStatus,
             pickUpDate: pickUpDate,
             pickUpStatus: pickUpStatus,
             payInStore: payInStore,

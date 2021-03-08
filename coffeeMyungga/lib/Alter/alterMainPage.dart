@@ -203,6 +203,49 @@ class _AlterPageState extends State<AlterPage> {
                   ],
                 )),
           ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, "/BackUpPage");
+            },
+            child: Container(
+                width: device_width,
+                margin:
+                    EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            child: Text("BackUp",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
+                                )),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 5),
+                            child: Text("백업.",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
+          ),
         ],
       ),
     );
