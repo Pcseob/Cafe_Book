@@ -29,14 +29,14 @@ class _AlterPageState extends AddOrderParent<OrderAlterPage> {
           title: Text('수정 중'),
           content: Text("변경된 내용은 저장이 되지 않습니다."),
           actions: <Widget>[
-            FlatButton(
+            ElevatedButton(
                 child: Text('나가기'),
                 onPressed: () {
                   Navigator.of(context)
                       .popUntil(ModalRoute.withName("/DetailPage"));
                   // dispose();
                 }),
-            FlatButton(
+            ElevatedButton(
               child: Text('유지'),
               onPressed: () {
                 Navigator.pop(context);
@@ -58,7 +58,6 @@ class _AlterPageState extends AddOrderParent<OrderAlterPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -171,8 +170,6 @@ class _AlterPageState extends AddOrderParent<OrderAlterPage> {
   @override
   thirdLineBuild() {
     return super.thirdLineBuild();
-
-    // TODO: implement thirdLineBuild
   }
 
   @override
@@ -370,7 +367,7 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
           title: Text('삭제'),
           content: Text("삭제된 내용은 복구되지 않습니다."),
           actions: <Widget>[
-            FlatButton(
+            ElevatedButton(
               child: Text(
                 '삭제',
                 style: TextStyle(color: Colors.redAccent),
@@ -379,7 +376,7 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
                 Navigator.pop(context, true);
               },
             ),
-            FlatButton(
+            ElevatedButton(
               child: Text('유지'),
               onPressed: () {
                 Navigator.pop(context, false);

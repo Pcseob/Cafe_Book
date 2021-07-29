@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cakeorder/Alter/alterMainPage.dart';
 
 class PasswordPage extends StatefulWidget {
-  Function setPasswordCallback;
-  bool correctPassword;
+  final Function setPasswordCallback;
+  final bool correctPassword;
   PasswordPage({Key key, this.correctPassword, this.setPasswordCallback})
       : super(key: key);
 
@@ -15,14 +15,13 @@ class PasswordPage extends StatefulWidget {
 
 class _PasswordPageState extends State<PasswordPage> {
   final scaffoldGlobalKey = GlobalKey<ScaffoldState>();
-  static final PASSWORD_DOCUMENT_ID = "password";
+  final passwordDocumentID = "password";
   TextEditingController textEditingControllerPassword;
 
   Function setTempPasswordCallback;
   bool isCorrectPassword;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     textEditingControllerPassword = TextEditingController();
     // tempSavePassword = widget.receivePassword ?? "";
@@ -33,7 +32,6 @@ class _PasswordPageState extends State<PasswordPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     textEditingControllerPassword.dispose();
   }
@@ -43,7 +41,6 @@ class _PasswordPageState extends State<PasswordPage> {
     return !isCorrectPassword
         ? Scaffold(
             resizeToAvoidBottomInset: false,
-            resizeToAvoidBottomPadding: false,
             key: scaffoldGlobalKey,
             body: setFuturebuilder(),
           )
@@ -53,7 +50,7 @@ class _PasswordPageState extends State<PasswordPage> {
   fetchData() {
     return FirebaseFirestore.instance
         .collection("Password")
-        .doc(PASSWORD_DOCUMENT_ID)
+        .doc(passwordDocumentID)
         .get();
   }
 
@@ -91,7 +88,7 @@ class _PasswordPageState extends State<PasswordPage> {
                           controller: textEditingControllerPassword,
                         ),
                       ),
-                      RaisedButton(
+                      ElevatedButton(
                           child: Text("로그인"),
                           onPressed: () {
                             FocusScope.of(context).unfocus();

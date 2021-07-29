@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cakeorder/ProviderPackage/cakeDataClass.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderPage extends StatefulWidget {
   @override
@@ -29,19 +29,19 @@ class _AddOrderState extends _TodayParent<OrderPage> {
 
     return Container(
         width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.only(top: 3, bottom: 3),
+        margin: EdgeInsets.symmetric(vertical: 3.h),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Row(
             children: [
               Icon(
                 Icons.payment,
-                size: 20,
+                size: 20.sp,
               ),
               Icon(
                 payStatus ? Icons.check : Icons.close,
                 color: Colors.redAccent,
-                size: 18,
+                size: 18.sp,
               ),
             ],
           ),
@@ -49,7 +49,7 @@ class _AddOrderState extends _TodayParent<OrderPage> {
             children: [
               Icon(
                 Icons.person,
-                size: 15,
+                size: 15.sp,
               ),
               Container(
                 child: Text(customerName),
@@ -110,7 +110,6 @@ class _AddOrderState extends _TodayParent<OrderPage> {
 
   @override
   setSlidableDrawerActionPane(int index) {
-    // TODO: implement setSlidableDrawerActionPanevar _cakeData = _listData[index];
     var _cakeData = _listData[index];
     return SlidableDismissal(
       child: SlidableDrawerDismissal(
@@ -130,7 +129,6 @@ class _AddOrderState extends _TodayParent<OrderPage> {
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
 
@@ -167,14 +165,14 @@ class _PickUpPageState extends _TodayParent<PickUpPage> {
               children: [
                 Icon(
                   Icons.event,
-                  size: 20,
+                  size: 20.sp,
                 ),
                 Text(
                   !isPickUpDateNull ? pickUpDateData.join() : "EMPTY",
                   style: TextStyle(
                       color: Colors.redAccent,
                       fontWeight: FontWeight.bold,
-                      fontSize: 13),
+                      fontSize: 13.sp),
                 ),
               ],
             ),
@@ -183,13 +181,13 @@ class _PickUpPageState extends _TodayParent<PickUpPage> {
               children: [
                 Icon(
                   Icons.person,
-                  size: 15,
+                  size: 15.sp,
                 ),
                 Text(
                   customerName + " " + customerPhone,
                   textAlign: TextAlign.end,
                   maxLines: 1,
-                  style: TextStyle(color: Colors.black, fontSize: 13),
+                  style: TextStyle(color: Colors.black, fontSize: 13.sp),
                 ),
               ],
             ),
@@ -205,28 +203,28 @@ class _PickUpPageState extends _TodayParent<PickUpPage> {
     else
       payStatus = _listData[index].payInCash || _listData[index].payInStore;
     return Container(
-        margin: EdgeInsets.only(top: 2),
+        margin: EdgeInsets.only(top: 2.h),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Icon(
             Icons.payment,
-            size: 20,
+            size: 20.sp,
           ),
           Icon(
             payStatus ? Icons.check : Icons.close,
             color: Colors.redAccent,
-            size: 18,
+            size: 18.sp,
           ),
           Container(
-            margin: EdgeInsets.only(left: 10),
+            margin: EdgeInsets.only(left: 10.w),
             child: Icon(
               Icons.shopping_bag_outlined,
-              size: 20,
+              size: 20.sp,
             ),
           ),
           Icon(
             _listData[index].pickUpStatus ? Icons.check : Icons.close,
             color: Colors.redAccent,
-            size: 18,
+            size: 18.sp,
           ),
         ]));
   }
@@ -312,7 +310,6 @@ class _PickUpPageState extends _TodayParent<PickUpPage> {
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
 
@@ -360,7 +357,7 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
             ? Scaffold(
                 key: _scaffoldKey,
                 body: Container(
-                  margin: EdgeInsets.only(top: 5),
+                  margin: EdgeInsets.only(top: 5.h),
                   child: ListView.builder(
                     itemCount: _listData.length,
                     itemBuilder: (context, index) {
@@ -377,9 +374,10 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
                                 arguments: {"DATA": _listData[index]});
                           },
                           child: Container(
-                              margin: EdgeInsets.all(5),
-                              padding:
-                                  EdgeInsets.only(left: 5, right: 5, top: 3),
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5.h, horizontal: 5.w),
+                              padding: EdgeInsets.only(
+                                  left: 5.w, right: 5.w, top: 3.h),
                               decoration: setListContainerBoxDecoration(index),
                               height: MediaQuery.of(context).size.height / 6.2,
                               child: Column(
@@ -413,18 +411,18 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
     else
       remark = _listData[index].remark;
     return Container(
-      margin: EdgeInsets.only(bottom: 1),
+      margin: EdgeInsets.only(bottom: 1.h),
       child: Row(
         children: [
           Container(
               child: Icon(
             Icons.comment,
-            size: 20,
+            size: 20.sp,
           )),
           Expanded(
             child: Text(
               remark,
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14.sp),
               maxLines: 1,
               textAlign: TextAlign.start,
               overflow: TextOverflow.ellipsis,
@@ -472,7 +470,7 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
         child: Row(children: [
       Icon(
         Icons.cake_outlined,
-        size: 20,
+        size: 20.sp,
       ),
       Text(
         !isCakePriceNull
@@ -482,7 +480,9 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
                 _listData[index].cakeCount.toString()
             : "EMPTY",
         style: TextStyle(
-            color: Colors.redAccent, fontWeight: FontWeight.bold, fontSize: 13),
+            color: Colors.redAccent,
+            fontWeight: FontWeight.bold,
+            fontSize: 13.sp),
       ),
       Spacer(),
       Icon(Icons.money),
@@ -498,17 +498,17 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
       payStatus = _listData[index].payInCash || _listData[index].payInStore;
 
     return Container(
-        margin: EdgeInsets.only(top: 3),
+        margin: EdgeInsets.only(top: 3.h),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Icon(
             Icons.payment,
-            size: 20,
+            size: 20.sp,
           ),
           Icon(
             payStatus ? Icons.check : Icons.close,
             color: Colors.redAccent,
-            size: 18,
+            size: 18.sp,
           )
         ]));
   }
@@ -536,7 +536,7 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
                 flex: 1,
                 child: Icon(
                   Icons.event,
-                  size: 20,
+                  size: 20.sp,
                 ),
               ),
               Flexible(
@@ -547,7 +547,7 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
                   style: TextStyle(
                       color: Colors.redAccent,
                       fontWeight: FontWeight.bold,
-                      fontSize: 13),
+                      fontSize: 13.sp),
                 ),
               ),
             ],
@@ -562,7 +562,7 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
                 flex: 1,
                 child: Icon(
                   Icons.person,
-                  size: 15,
+                  size: 15.sp,
                 ),
               ),
               Flexible(
@@ -572,7 +572,7 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
                       ? partTimerName + "  " + orderDateData.join()
                       : "EMPTY",
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: Colors.grey, fontSize: 10),
+                  style: TextStyle(color: Colors.grey, fontSize: 10.sp),
                 ),
               )
             ],

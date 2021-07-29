@@ -1,14 +1,13 @@
 import 'package:cakeorder/ProviderPackage/cakeDataClass.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'addDropDown.dart';
 import 'selectDate.dart';
 import 'cakeCount.dart';
 import 'package:tip_dialog/tip_dialog.dart';
-import 'package:async/async.dart';
 
 class AddOrder extends StatefulWidget {
   // final bool canAlter;
@@ -28,12 +27,10 @@ class _AddOrderState extends AddOrderParent<AddOrder> {
 }
 
 abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
-  @override
-  // TODO: implement widget
   // factory AddOrderParent.toDetailPage();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  double _text_MARGIN = 10;
-  double _text_Font_Size = 15;
+
+  // double textFontSize = 15.sp;
   bool payStatus;
   bool pickUpStatus;
   bool isDetailPage;
@@ -114,8 +111,6 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-
     initNdisposeTextEditController(init: false);
     super.dispose();
   }
@@ -146,7 +141,7 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
     return Stack(children: <Widget>[
       Scaffold(
         key: scaffoldKey,
-        resizeToAvoidBottomPadding: true,
+        resizeToAvoidBottomInset: true,
         appBar: setAppbarMethod(),
         body: WillPopScope(
           onWillPop: () => settingOnWillPopMethod(),
@@ -237,11 +232,11 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
 
   fourthLineBuild() {
     return Container(
-      margin: EdgeInsets.only(left: 10, top: 10, right: 5),
+      margin: EdgeInsets.only(left: 10.w, top: 10.h, right: 5.w),
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 10),
+            margin: EdgeInsets.only(bottom: 10.h),
             alignment: Alignment.centerLeft,
             child: _customTitle(title: '주문자 정보', important: true),
           ),
@@ -292,20 +287,22 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
 
   addButton() {
     return Container(
-      margin: EdgeInsets.only(top: 15),
+      margin: EdgeInsets.only(top: 15.h),
       child: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  side: BorderSide(color: Colors.blueAccent)),
+            ),
             child: Text(
               "저장",
               style: TextStyle(
                   color: Colors.blueAccent,
                   fontWeight: FontWeight.bold,
-                  fontSize: 14),
+                  fontSize: 14.sp),
             ),
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                side: BorderSide(color: Colors.blueAccent)),
             onPressed: () {
               // _addData();
               if (!_catchNull()) {
@@ -339,11 +336,11 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
         payInStore: payInStore,
         pickUpStatus: pickUpStatus,
         cakeCount: cakeCount);
-    await data.toFireStore(callback: loadDialogCallback);
+    await data.toFireStore(loadDialogCallback);
   }
 
   navigatorPopAlertDialog() async {
-    String result = await showDialog(
+    await showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
@@ -351,14 +348,13 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
           title: Text('작성 중'),
           content: Text("변경된 내용은 저장이 되지 않습니다."),
           actions: <Widget>[
-            FlatButton(
+            ElevatedButton(
               child: Text('나가기'),
               onPressed: () {
-                int count = 0;
                 Navigator.of(context).popUntil(ModalRoute.withName("/"));
               },
             ),
-            FlatButton(
+            ElevatedButton(
               child: Text('유지'),
               onPressed: () {
                 Navigator.pop(context);
@@ -423,11 +419,6 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
     return false;
   }
 
-  _errorSnackBar(CakeDataError dataError) {
-    // final snackBar = SnackBar(content: Text('Are you talkin\' to me?'));
-    var snackBar = SnackBar(content: Text("${dataError.errorComment}"));
-  }
-
   dialogProgressIndicator() {
     showDialog(
       context: scaffoldKey.currentContext,
@@ -440,7 +431,8 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               content: Container(
-                  padding: EdgeInsets.all(16),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
                   color: Colors.black.withOpacity(0.8),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -453,20 +445,21 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
                                   valueColor: AlwaysStoppedAnimation<Color>(
                                       Colors.white),
                                 ),
-                                width: 32,
-                                height: 32),
-                            padding: EdgeInsets.only(bottom: 16)),
+                                width: 32.w,
+                                height: 32.h),
+                            padding: EdgeInsets.only(bottom: 16.h)),
                         Padding(
                             child: Text(
                               'Please wait …',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 16.sp),
                               textAlign: TextAlign.center,
                             ),
-                            padding: EdgeInsets.only(bottom: 4)),
+                            padding: EdgeInsets.only(bottom: 4.h)),
                         Text(
                           "저장 중 입니다.",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 14.sp),
                           textAlign: TextAlign.center,
                         )
                       ])),
@@ -555,8 +548,8 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
                 // width: 350,
                 padding: EdgeInsets.only(
                     // bottom: MediaQuery.of(context).viewInsets.bottom,
-                    right: 10,
-                    left: 10),
+                    right: 10.w,
+                    left: 10.w),
                 decoration:
                     BoxDecoration(border: Border.all(color: Colors.grey)),
                 child: TextField(
@@ -569,7 +562,7 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 15.sp,
                   ),
                 ),
               )
@@ -577,8 +570,8 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.all(Radius.circular(5))),
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
                 child: Text(
                   remarkText != null
                       ? remarkText != ''
@@ -592,7 +585,7 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
 
   Widget checkPay({Function snakbarCallback}) {
     return Container(
-      margin: EdgeInsets.only(left: 50, top: 5),
+      margin: EdgeInsets.only(left: 50.w, top: 5.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -646,8 +639,8 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
     return Container(
       width: MediaQuery.of(context).size.width / 4,
       margin: isDetailPage
-          ? EdgeInsets.only(top: 5, right: 5)
-          : EdgeInsets.only(left: 10, top: 5, right: 5),
+          ? EdgeInsets.only(top: 5.h, right: 5.w)
+          : EdgeInsets.only(left: 10.w, top: 5.h, right: 5.w),
       child: Column(
         children: [
           isPayStatus
@@ -679,7 +672,7 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
     return Text(
       title ?? "Empty",
       style: TextStyle(
-          fontSize: _text_Font_Size,
+          fontSize: 15.sp,
           fontWeight: FontWeight.bold,
           color: important ? Colors.redAccent : Colors.black),
     );
@@ -687,7 +680,7 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
 
   _customTextBox({bool isOrder, String title, bool import}) {
     return Container(
-        padding: EdgeInsets.only(left: _text_MARGIN, top: _text_MARGIN),
+        padding: EdgeInsets.only(left: 10.w, top: 10.h),
         child: _customTitle(
             title: isOrder != null
                 ? isOrder

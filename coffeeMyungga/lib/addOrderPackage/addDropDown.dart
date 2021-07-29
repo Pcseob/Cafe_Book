@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:cakeorder/ProviderPackage/cakeDataClass.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDropDown {
   final BuildContext context;
   bool isClickable = true;
   bool isDetail = false;
-  static final double _text_Font_Size = 15;
+  static final double textFontSize = 15.sp;
   Function
       setStateCallback; //Callback Parameter Format : "?parm1='STRING'&parm2='DATA'"
   List<CakeSizePrice> cakeSizeList = <CakeSizePrice>[];
@@ -27,7 +28,7 @@ class CustomDropDown {
     return Text(
       title ?? "Empty",
       style: TextStyle(
-          fontSize: fontSize ?? _text_Font_Size,
+          fontSize: fontSize ?? textFontSize,
           fontWeight: FontWeight.bold,
           color: important ? Colors.redAccent : Colors.black),
     );
@@ -81,10 +82,11 @@ class CustomDropDown {
           isClickable
               ? IgnorePointer(ignoring: !isClickable, child: dropDown)
               : Container(
-                  margin: EdgeInsets.only(left: 10),
+                  margin: EdgeInsets.only(left: 10.w),
                   child: Text(
-                    "${partTimer}",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    "$partTimer",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: textFontSize),
                   )),
 
           // setStateCallback(value)),
@@ -110,7 +112,7 @@ class CustomDropDown {
       });
     }
     return Container(
-        margin: EdgeInsets.only(left: 10, top: 15),
+        margin: EdgeInsets.only(left: 10.w, top: 15.h),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           _customTitle(
               title: isClickable ? "주문 케이크 종류" : "주문 케이크", important: true),
@@ -134,10 +136,11 @@ class CustomDropDown {
                     setStateCallback("?parm1=cakeCategory", cakeCategory: cake);
                   })
               : Container(
-                  margin: EdgeInsets.only(left: 10),
+                  margin: EdgeInsets.only(left: 10.w),
                   child: Text(
                     "${cakeCategory != null ? cakeCategory.name : cakeCategoryName}",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: textFontSize),
                   )),
         ]));
   }
@@ -210,7 +213,7 @@ class CustomDropDown {
       children2 = [
         _customTitle(title: "케이크 호수", important: true),
         Container(
-            margin: EdgeInsets.only(left: 10),
+            margin: EdgeInsets.only(left: 10.w),
             child: Text(
               "${selectedCakeSize != null ? selectedCakeSize.cakeSize.toString() + selectedCakeSize.cakePrice.toString() : cakeSize + cakePrice}",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
@@ -229,13 +232,13 @@ class CustomDropDown {
         ];
       } else {
         return Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: EdgeInsets.only(top: 20.h),
             child: _customTitle(
-                title: '케이크를 선택해주세요', important: true, fontSize: 13));
+                title: '케이크를 선택해주세요', important: true, fontSize: 13.sp));
       }
     }
     return Container(
-      margin: EdgeInsets.only(left: 10, top: 15),
+      margin: EdgeInsets.only(left: 10.w, top: 15.h),
       child: Column(children: children2),
     );
     // if (currentCakeCategory != null) {

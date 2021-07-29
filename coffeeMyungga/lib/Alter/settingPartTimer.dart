@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tip_dialog/tip_dialog.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingPartTimer extends StatefulWidget {
   SettingPartTimer({Key key}) : super(key: key);
@@ -111,7 +111,7 @@ class _SettingPartTimerState extends State<SettingPartTimer> {
   _createPartTimer() {
     if (createButton) {
       return Container(
-          height: 80,
+          height: 80.h,
           child: Center(
             child: IconButton(
               icon: Icon(Icons.add),
@@ -127,9 +127,9 @@ class _SettingPartTimerState extends State<SettingPartTimer> {
           decoration: new BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              border: Border.all(width: 1, color: Colors.black12)),
-          margin: EdgeInsets.only(left: 50, right: 50, top: 20, bottom: 20),
-          padding: EdgeInsets.only(left: 10),
+              border: Border.all(width: 1.w, color: Colors.black12)),
+          margin: EdgeInsets.symmetric(vertical: 20.h, horizontal: 50.w),
+          padding: EdgeInsets.only(left: 10.w),
           child: TextField(
             decoration: InputDecoration(
                 border: InputBorder.none,

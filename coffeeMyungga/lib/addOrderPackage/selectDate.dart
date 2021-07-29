@@ -3,6 +3,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDate {
   final BuildContext context;
@@ -21,7 +22,7 @@ class CustomDate {
         //Pick Calendar
         Flexible(
             child: Container(
-                padding: EdgeInsets.only(left: 5),
+                padding: EdgeInsets.only(left: 5.w),
                 child: GestureDetector(
                   onTap: () {
                     FocusScope.of(context).unfocus();
@@ -34,7 +35,7 @@ class CustomDate {
                                 monthCellStyle: DateRangePickerMonthCellStyle(
                                     weekendTextStyle: TextStyle(
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 12,
+                                        fontSize: 12.sp,
                                         color: Colors.red)),
                                 monthViewSettings:
                                     DateRangePickerMonthViewSettings(
@@ -62,7 +63,7 @@ class CustomDate {
         // Setting time
         Flexible(
           child: Container(
-              padding: EdgeInsets.only(right: 5),
+              padding: EdgeInsets.only(right: 5.w),
               child: GestureDetector(
                 onTap: () {
                   FocusScope.of(context).unfocus();
@@ -112,7 +113,7 @@ class CustomDate {
 
   void showAlertDialog(BuildContext context,
       {@required bool isOrderTime, var pickUpTime}) async {
-    String result = await showDialog(
+    await showDialog(
       context: context,
       barrierDismissible: true, // user must tap button!
       builder: (BuildContext context) {
@@ -123,7 +124,7 @@ class CustomDate {
             time: setInitDateTime(isOrderTime, pickUpTime),
             minutesInterval: isOrderTime ? 10 : 30,
             spacing: 50,
-            itemHeight: 80,
+            itemHeight: 80.h,
             isForce2Digits: true,
             onTimeChange: (time) {
               print(time);

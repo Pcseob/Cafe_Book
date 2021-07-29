@@ -1,5 +1,4 @@
 import 'package:cakeorder/Alter/alterMainPage.dart';
-import 'package:cakeorder/Alter/backUp.dart';
 import 'package:cakeorder/Alter/customPhone.dart';
 import 'package:cakeorder/Alter/passwordPage.dart';
 import 'package:cakeorder/Alter/reportPage.dart';
@@ -75,9 +74,6 @@ class CakeOrderRouteGenerator {
         break;
       case 'PasswordPage':
         _pageWidget = PasswordPage();
-        break;
-      case 'BackUpPage':
-        _pageWidget = BackUpPage();
         break;
     }
     return CurrentOSCheck.instance['Android']
