@@ -168,8 +168,8 @@ class _AlterPageState extends AddOrderParent<OrderAlterPage> {
   }
 
   @override
-  thirdLineBuild() {
-    return super.thirdLineBuild();
+  thirdLineBuild(int i) {
+    return super.thirdLineBuild(1);
   }
 
   @override
@@ -452,7 +452,7 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
   }
 
   @override
-  thirdLineBuild() {
+  thirdLineBuild(int i) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,

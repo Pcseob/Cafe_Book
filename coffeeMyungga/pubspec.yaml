@@ -30,11 +30,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   syncfusion_flutter_datepicker: ^18.3.52-beta
-  firebase_core: ^0.5.3
-  cloud_firestore: ^0.14.3+1
+  firebase_core: ^1.4.0
+  firebase_database: ^7.1.2
+  cloud_firestore: ^2.4.0
+  firebase_auth: ^3.0.1
+
   provider: ^4.3.2+3
-  flutter_time_picker_spinner: ^1.0.6+1
-  firebase_auth: ^0.18.4
+  flutter_time_picker_spinner: ^1.0.6+1   
   flutter_slidable: ^0.6.0
   table_calendar: ^2.3.3
   tip_dialog: ^3.1.0
@@ -42,11 +44,13 @@ dependencies:
   fl_chart: ^0.12.2
   date_util: ^0.1.4
   pull_to_refresh: ^2.0.0
-  path_provider: ^1.6.27
+  path_provider: ^2.0.2
   google_sign_in: ^4.5.9
   logger: ^0.9.4
-  shared_preferences: ^0.5.12+4
+  shared_preferences: ^2.0.6
   flutter_screenutil: ^5.0.0+2
+  riverpod: ^0.14.0+3
+  
   
 dev_dependencies:
   flutter_test:

@@ -15,7 +15,7 @@ class CustomBottomNavi {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 8.h),
           child: GNav(
-              gap: 8,
+              gap: 8.w,
               activeColor: Colors.white,
               iconSize: 24.sp,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
