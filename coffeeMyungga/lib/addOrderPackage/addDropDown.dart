@@ -8,7 +8,7 @@ class CustomDropDown {
   final BuildContext context;
   bool isClickable = true;
   bool isDetail = false;
-  static final double textFontSize = 13.sp;
+  static final double textFontSize = 15.sp;
   Function
       setStateCallback; //Callback Parameter Format : "?parm1='STRING'&parm2='DATA'"
   List<CakeSizePrice> cakeSizeList = <CakeSizePrice>[];
@@ -232,10 +232,9 @@ class CustomDropDown {
         ];
       } else {
         return Container(
-            // margin: EdgeInsets.only(top: 20.h),
-            // child: _customTitle(
-            // title: '케이크를 선택해주세요', important: true, fontSize: 12.sp)
-            );
+            margin: EdgeInsets.only(top: 20.h),
+            child: _customTitle(
+                title: '케이크를 선택해주세요', important: true, fontSize: 13.sp));
       }
     }
     return Container(

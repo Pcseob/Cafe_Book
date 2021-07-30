@@ -131,7 +131,7 @@ class CakeData {
   }
 
   factory CakeData.fromFireStore(DocumentSnapshot snapshot) {
-    Map<dynamic, dynamic> _cakeData = snapshot.data();
+    var _cakeData = snapshot.data();
     return CakeData(
         cakeCategory: _cakeData["cakeCategory"] ?? '',
         cakeCount: _cakeData["cakeCount"] ?? 1,
@@ -189,7 +189,7 @@ class CakeDataOrder extends CakeData {
             payInStore: payInStore);
 
   factory CakeDataOrder.fromFireStore(DocumentSnapshot snapshot) {
-    Map<dynamic, dynamic> _cakeData = snapshot.data();
+    var _cakeData = snapshot.data();
     return CakeDataOrder(
         cakeCategory: _cakeData["cakeCategory"] ?? '',
         cakeCount: _cakeData["cakeCount"] ?? 1,
@@ -248,7 +248,7 @@ class CakeDataPickUp extends CakeData {
         );
 
   factory CakeDataPickUp.fromFireStore(DocumentSnapshot snapshot) {
-    Map<dynamic, dynamic> _cakeData = snapshot.data();
+    var _cakeData = snapshot.data();
     return CakeDataPickUp(
         cakeCategory: _cakeData["cakeCategory"] ?? '',
         cakeCount: _cakeData["cakeCount"] ?? 1,
@@ -305,7 +305,7 @@ class CakeDataCalendarPickUp extends CakeData {
             payInCash: payInCash,
             remark: remark);
   factory CakeDataCalendarPickUp.fromFireStore(DocumentSnapshot snapshot) {
-    Map<dynamic, dynamic> _cakeData = snapshot.data();
+    var _cakeData = snapshot.data();
     return CakeDataCalendarPickUp(
         cakeCategory: _cakeData["cakeCategory"] ?? '',
         cakeCount: _cakeData["cakeCount"] ?? 1,
@@ -362,7 +362,7 @@ class CakeDataCalendarOrder extends CakeData {
             payInCash: payInCash,
             remark: remark);
   factory CakeDataCalendarOrder.fromFireStore(DocumentSnapshot snapshot) {
-    Map<dynamic, dynamic> _cakeData = snapshot.data();
+    var _cakeData = snapshot.data();
     return CakeDataCalendarOrder(
         cakeCategory: _cakeData["cakeCategory"] ?? '',
         cakeCount: _cakeData["cakeCount"] ?? 1,
@@ -389,8 +389,7 @@ class CakeCategory {
   final List<dynamic> cakePrice;
   CakeCategory({this.name, this.cakePrice, this.cakeSize});
   factory CakeCategory.fromFireStore(DocumentSnapshot snapshot) {
-    Map<dynamic, dynamic> _cakeCategory = snapshot.data();
-    var _data = _cakeCategory["CakePrice"];
+    var _data = snapshot.data()["CakePrice"];
     return CakeCategory(
         name: snapshot.id ?? '',
         cakeSize: _data.keys.toList() ?? [],

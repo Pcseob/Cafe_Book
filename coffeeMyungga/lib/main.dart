@@ -47,6 +47,14 @@ class _CakeOrderAppState extends State<CakeOrderApp> {
 
   @override
   Widget build(BuildContext context) {
+    // _widgetOptions = <Widget>[
+    //   TodayList(),
+    //   CalendarPage(),
+    //   AlterPage(),
+    //   // PasswordPage(
+    //   //     setPasswordCallback: passwordCallback,
+    //   //     correctPassword: isSavePassword)
+    // ];
     _widgetOptions = <Widget>[
       TodayList(),
       CalendarPage(),
