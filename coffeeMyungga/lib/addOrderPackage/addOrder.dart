@@ -77,8 +77,11 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
   String remarkText;
   String aboutCakeText;
   String currentDocumentId;
+
+  int cakeCategoryCount;
   @override
   void initState() {
+    cakeCategoryCount = 0;
     customInitData();
     setInitData();
     initNdisposeTextEditController(init: true);
@@ -139,33 +142,36 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
         isDetailPage: isDetailPage);
 
     return Stack(children: <Widget>[
-      Scaffold(
-        key: scaffoldKey,
-        resizeToAvoidBottomInset: true,
-        appBar: setAppbarMethod(),
-        body: WillPopScope(
-          onWillPop: () => settingOnWillPopMethod(),
-          child: GestureDetector(
-            onTap: () {
-              //If tap ouside, hide keyboard
-              FocusScope.of(context).unfocus();
-            },
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Colors.transparent,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    firstLineBuild(),
-                    secondLineBuild(),
-                    thirdLineBuild(),
-                    fourthLineBuild(),
-                    fifthLineBuild(),
-                    sixthLineBuild(),
-                    !isDetailPage ? addButton() : Container(),
-                  ],
+      SafeArea(
+        child: Scaffold(
+          key: scaffoldKey,
+          resizeToAvoidBottomInset: true,
+          appBar: setAppbarMethod(),
+          body: WillPopScope(
+            onWillPop: () => settingOnWillPopMethod(),
+            child: GestureDetector(
+              onTap: () {
+                //If tap ouside, hide keyboard
+                FocusScope.of(context).unfocus();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 3.w),
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.transparent,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      firstLineBuild(),
+                      secondLineBuild(),
+                      thirdLineBuild(cakeCategoryCount),
+                      fourthLineBuild(),
+                      fifthLineBuild(),
+                      sixthLineBuild(),
+                      !isDetailPage ? addButton() : Container(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -204,30 +210,59 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
     );
   }
 
-  thirdLineBuild() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Flexible(
-          flex: 1,
-          child: customDropDown.selectCakeCategory(
-            selectedCakeName,
+  thirdLineBuild(int widgetCount) {
+    Widget cakeDropDownWidget = Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Flexible(
+            child: customDropDown.selectCakeCategory(
+              selectedCakeName,
+            ),
           ),
-        ),
-        Flexible(
-          flex: 1,
-          child: customDropDown.selectCakePrice(
-              currentCakeCategory: selectedCakeName,
-              cakeList: cakeSizeList,
-              selectedCakeSize: selectedCakeSize),
-        ),
-        Flexible(
-            flex: 1,
-            child: cakeCountWidget.countWidget(
-                isvisible: selectedCakeName != null))
-      ],
-    );
+          Flexible(
+            child: customDropDown.selectCakePrice(
+                currentCakeCategory: selectedCakeName,
+                cakeList: cakeSizeList,
+                selectedCakeSize: selectedCakeSize),
+          ),
+          Flexible(
+              child: cakeCountWidget.countWidget(
+                  isvisible: selectedCakeName != null))
+        ]);
+    List<Widget> result = [cakeDropDownWidget];
+    for (int i = 0; i < widgetCount; i++) {
+      result.add(GestureDetector(
+          onLongPress: () {
+            showMenu(context: context, position: , items: items);
+            // showMenu(
+            //     // onSelected: () => setState(() => imageList.remove(index)),
+            //     items: <PopupMenuEntry>[
+            //       PopupMenuItem(
+            //         value: this._index,
+            //         child: Row(
+            //           children: <Widget>[
+            //             Icon(Icons.delete),
+            //             Text("삭제"),
+            //           ],
+            //         ),
+            //       )
+            //     ],
+            //     context: context,
+            //   );
+          },
+          child: cakeDropDownWidget));
+    }
+    return Column(
+        children: result
+          ..add(Center(
+              child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      ++cakeCategoryCount;
+                    });
+                  },
+                  icon: Icon(Icons.add)))));
   }
 
   fourthLineBuild() {
@@ -478,7 +513,7 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
     if (isCompleted == null) {
       Navigator.of(context).pop();
       TipDialogHelper.success("저장 완료!");
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(seconds: 1));
       Navigator.of(context).popUntil(ModalRoute.withName('/'));
     } else {
       Navigator.of(context).pop();
