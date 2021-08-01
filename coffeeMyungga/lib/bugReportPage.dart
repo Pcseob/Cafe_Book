@@ -148,7 +148,12 @@ class _BugReportPageState extends State<BugReportPage> {
                     ),
                   ),
                   ElevatedButton(
-                      child: Text("저장"),
+                      child: Text(
+                        "저장",
+                        style: TextStyle(color: Colors.blueAccent),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0, primary: Colors.yellow),
                       onPressed: () {
                         if (textEditingControllerBug.text != "") {
                           FirebaseFirestore.instance

@@ -89,7 +89,12 @@ class _PasswordPageState extends State<PasswordPage> {
                         ),
                       ),
                       ElevatedButton(
-                          child: Text("로그인"),
+                          style: ElevatedButton.styleFrom(
+                              elevation: 0, primary: Colors.yellow),
+                          child: Text(
+                            "로그인",
+                            style: TextStyle(color: Colors.blueAccent),
+                          ),
                           onPressed: () {
                             FocusScope.of(context).unfocus();
                             if (snapshot.data["password"] ==
@@ -103,8 +108,11 @@ class _PasswordPageState extends State<PasswordPage> {
 
                             else {
                               textEditingControllerPassword..text = '';
-                              scaffoldGlobalKey.currentState.showSnackBar(
-                                  SnackBar(content: Text("비밀번호가 일치하지 않습니다.")));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text("비밀번호가 일치하지 않습니다."),
+                                behavior: SnackBarBehavior.floating,
+                              ));
                             }
                           })
                     ],

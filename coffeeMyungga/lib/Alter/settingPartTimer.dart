@@ -52,8 +52,7 @@ class _SettingPartTimerState extends State<SettingPartTimer> {
           partTimerProvider.remove(_partTimerName);
           _firestoreDataUpdate(_partTimerName, isUndo: false);
         });
-
-        _scaffoldKey.currentState
+        ScaffoldMessenger.of(context)
             .showSnackBar(_snackBar(index, _partTimerName));
       },
     );
@@ -101,7 +100,7 @@ class _SettingPartTimerState extends State<SettingPartTimer> {
             partTimerProvider.remove(_partTimerName);
             _firestoreDataUpdate(_partTimerName, isUndo: false);
           });
-          _scaffoldKey.currentState
+          ScaffoldMessenger.of(context)
               .showSnackBar(_snackBar(index, _partTimerName));
         },
       )

@@ -220,6 +220,11 @@ abstract class _CalendarParent<T extends StatefulWidget> extends State<T>
                   ? event.pickUpDate.toString().split('')
                   : event.orderDate.toString().split('');
               _date.removeRange(_date.length - 7, _date.length);
+              String remark =
+                  "메모 : ${event.remark != "" ? event.remark : "메모가 없습니다."}";
+              String name =
+                  "이름 : ${event.customerName != "" ? event.customerName : ""}";
+              String phone = "연락처 : ${event.customerPhone}";
               return Container(
                 decoration: BoxDecoration(
                   border: Border.all(width: 0.8.w),
@@ -239,11 +244,32 @@ abstract class _CalendarParent<T extends StatefulWidget> extends State<T>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(_date.join()),
                           Text(
-                            event.customerName,
+                            "${isPickUpCalendar ? "픽업" : "주문"} : ${_date.join().toString()}",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          //이름 보여주기
+                          Text(
+                            name,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 13.sp),
-                          )
+                            maxLines: 1,
+                          ),
+                          //전화번호
+                          Text(
+                            phone,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 13.sp),
+                            maxLines: 1,
+                          ),
+                          //메모된 내용 보여주기
+                          Text(
+                            remark,
+                            style: TextStyle(fontSize: 13.sp),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
                         ],
                       ),
                     ),

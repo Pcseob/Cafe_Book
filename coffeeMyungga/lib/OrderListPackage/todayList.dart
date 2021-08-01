@@ -27,36 +27,36 @@ class _AddOrderState extends _TodayParent<OrderPage> {
     else
       payStatus = _listData[index].payInCash || _listData[index].payInStore;
 
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.symmetric(vertical: 3.h),
+    return Flexible(
+        // width: MediaQuery.of(context).size.width,
+        // margin: EdgeInsets.symmetric(vertical: 3.h),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Row(
-            children: [
-              Icon(
-                Icons.payment,
-                size: 20.sp,
-              ),
-              Icon(
-                payStatus ? Icons.check : Icons.close,
-                color: Colors.redAccent,
-                size: 18.sp,
-              ),
-            ],
+      Row(
+        children: [
+          Icon(
+            Icons.payment,
+            size: 20.sp,
           ),
-          Row(
-            children: [
-              Icon(
-                Icons.person,
-                size: 15.sp,
-              ),
-              Container(
-                child: Text(customerName),
-              ),
-            ],
-          )
-        ]));
+          Icon(
+            payStatus ? Icons.check : Icons.close,
+            color: Colors.redAccent,
+            size: 18.sp,
+          ),
+        ],
+      ),
+      Row(
+        children: [
+          Icon(
+            Icons.person,
+            size: 15.sp,
+          ),
+          Container(
+            child: Text(customerName),
+          ),
+        ],
+      )
+    ]));
   }
 
   @override
@@ -73,7 +73,7 @@ class _AddOrderState extends _TodayParent<OrderPage> {
             _firestoreDataUpdate(_cakeData, isUndo: false);
             _listData.remove(_cakeData);
           });
-          Scaffold.of(context)
+          ScaffoldMessenger.of(context)
               .showSnackBar(_deleteSnackBar(_cakeData, index: index));
         },
       )
@@ -82,6 +82,7 @@ class _AddOrderState extends _TodayParent<OrderPage> {
 
   _deleteSnackBar(var cakeData, {int index}) {
     return SnackBar(
+      behavior: SnackBarBehavior.floating,
       content: Text('삭제 완료!'),
       action: SnackBarAction(
         label: '취소',
@@ -120,8 +121,7 @@ class _AddOrderState extends _TodayParent<OrderPage> {
           _listData.remove(_cakeData);
           _firestoreDataUpdate(_cakeData, isUndo: false);
         });
-
-        Scaffold.of(context)
+        ScaffoldMessenger.of(context)
             .showSnackBar(_deleteSnackBar(_cakeData, index: index));
       },
     );
@@ -155,43 +155,67 @@ class _PickUpPageState extends _TodayParent<PickUpPage> {
       customerPhone = customerPhone.split('').getRange(0, 11).join() + "..";
     pickUpDateData.removeRange(dateLength - 7, dateLength);
 
-    return Expanded(
-      child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+    return Flexible(
+      child: Container(
+        // margin: EdgeInsets.symmetric(vertical: 3.h),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Flexible(
+            flex: 1,
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.event,
-                  size: 20.sp,
+                Container(
+                  child: Icon(
+                    Icons.event,
+                    size: 20.sp,
+                  ),
                 ),
-                Text(
-                  !isPickUpDateNull ? pickUpDateData.join() : "EMPTY",
-                  style: TextStyle(
-                      color: Colors.redAccent,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13.sp),
+                Container(
+                  child: Expanded(
+                    child: Text(
+                      !isPickUpDateNull ? pickUpDateData.join() : "EMPTY",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.redAccent,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.sp),
+                    ),
+                  ),
                 ),
               ],
             ),
-            Row(
+          ),
+          Flexible(
+            flex: 1,
+            child: Row(
+              // mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Icon(
-                  Icons.person,
-                  size: 15.sp,
+                Container(
+                  child: Icon(
+                    Icons.person,
+                    size: 15.sp,
+                  ),
                 ),
-                Text(
-                  customerName + " " + customerPhone,
-                  textAlign: TextAlign.end,
-                  maxLines: 1,
-                  style: TextStyle(color: Colors.black, fontSize: 13.sp),
-                ),
+                Container(
+                  child: Flexible(
+                    child: Text(
+                      customerName + " " + customerPhone,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
-          ]),
+          ),
+        ]),
+      ),
     );
   }
 
@@ -202,31 +226,30 @@ class _PickUpPageState extends _TodayParent<PickUpPage> {
       payStatus = _listData[index].payStatus;
     else
       payStatus = _listData[index].payInCash || _listData[index].payInStore;
-    return Container(
-        margin: EdgeInsets.only(top: 2.h),
+    return Flexible(
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Icon(
-            Icons.payment,
-            size: 20.sp,
-          ),
-          Icon(
-            payStatus ? Icons.check : Icons.close,
-            color: Colors.redAccent,
-            size: 18.sp,
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 10.w),
-            child: Icon(
-              Icons.shopping_bag_outlined,
-              size: 20.sp,
-            ),
-          ),
-          Icon(
-            _listData[index].pickUpStatus ? Icons.check : Icons.close,
-            color: Colors.redAccent,
-            size: 18.sp,
-          ),
-        ]));
+      Icon(
+        Icons.payment,
+        size: 20.sp,
+      ),
+      Icon(
+        payStatus ? Icons.check : Icons.close,
+        color: Colors.redAccent,
+        size: 18.sp,
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 10.w),
+        child: Icon(
+          Icons.shopping_bag_outlined,
+          size: 20.sp,
+        ),
+      ),
+      Icon(
+        _listData[index].pickUpStatus ? Icons.check : Icons.close,
+        color: Colors.redAccent,
+        size: 18.sp,
+      ),
+    ]));
   }
 
   @override
@@ -245,7 +268,8 @@ class _PickUpPageState extends _TodayParent<PickUpPage> {
               // _listData.remove(_cakeData);
               // _listData.add(_cakeData);
             });
-            Scaffold.of(context).showSnackBar(_pickUpSnackBar(_cakeData));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(_pickUpSnackBar(_cakeData));
           },
         )
       ];
@@ -255,6 +279,7 @@ class _PickUpPageState extends _TodayParent<PickUpPage> {
 
   _pickUpSnackBar(var _cakeData) {
     return SnackBar(
+      behavior: SnackBarBehavior.floating,
       content: Text('픽업 완료!'),
       action: SnackBarAction(
         label: '취소',
@@ -272,22 +297,6 @@ class _PickUpPageState extends _TodayParent<PickUpPage> {
   @override
   setSlidableDrawerActionPane(int index) {
     return;
-    // var _cakeData = _listData[index];
-
-    // return SlidableDismissal(
-    //   child: SlidableDrawerDismissal(
-    //     key: UniqueKey(),
-    //   ),
-    //   onDismissed: (actionType) {
-    //     setState(() {
-    //       _listData.remove(_cakeData);
-    //       _firestoreDataUpdate(_cakeData, isUndo: false);
-    //     });
-
-    //     Scaffold.of(context).showSnackBar(_pickUpSnackBar(_cakeData));
-    //   },
-    // );
-    // return super.setSlidableDrawerActionPane();
   }
 
   Future _firestoreDataUpdate(CakeData cakeData,
@@ -315,30 +324,30 @@ class _PickUpPageState extends _TodayParent<PickUpPage> {
 
 abstract class _TodayParent<T extends StatefulWidget> extends State<T>
     with AutomaticKeepAliveClientMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<CakeData> _listData;
   SlidableController slidableController;
-  Animation<double> _rotationAnimation;
-  Color _fabColor = Colors.blue;
+  // Animation<double> _rotationAnimation;
+  // Color _fabColor = Colors.blue;
   @override
   void initState() {
-    slidableController = SlidableController(
-        onSlideAnimationChanged: handleSlideAnimationChanged,
-        onSlideIsOpenChanged: handleSlideIsOpenChanged);
+    // slidableController = SlidableController(
+    //     onSlideAnimationChanged: handleSlideAnimationChanged,
+    //     onSlideIsOpenChanged: handleSlideIsOpenChanged);
     super.initState();
   }
 
-  void handleSlideAnimationChanged(Animation<double> slideAnimation) {
-    setState(() {
-      _rotationAnimation = slideAnimation;
-    });
-  }
+  // void handleSlideAnimationChanged(Animation<double> slideAnimation) {
+  //   setState(() {
+  //     _rotationAnimation = slideAnimation;
+  //   });
+  // }
 
-  void handleSlideIsOpenChanged(bool isOpen) {
-    setState(() {
-      _fabColor = isOpen ? Colors.green : Colors.blue;
-    });
-  }
+  // void handleSlideIsOpenChanged(bool isOpen) {
+  //   setState(() {
+  //     _fabColor = isOpen ? Colors.green : Colors.blue;
+  //   });
+  // }
 
   setSlidableDrawerActionPane(int index);
   setListContainerBoxDecoration(int index) {
@@ -349,49 +358,49 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
 
   setListData();
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     _listData = setListData();
 
     return _listData != null
         ? _listData.length != 0
-            ? Scaffold(
-                key: _scaffoldKey,
-                body: Container(
-                  margin: EdgeInsets.only(top: 5.h),
-                  child: ListView.builder(
-                    itemCount: _listData.length,
-                    itemBuilder: (context, index) {
-                      return Slidable(
-                        key: ValueKey(_listData[index].documentId),
-                        actionPane: SlidableDrawerActionPane(),
-                        secondaryActions: customSwipeIconWidget(index),
-                        dismissal: setSlidableDrawerActionPane(index),
-                        child: GestureDetector(
-                          onTap: () {
-                            // Navigator.pushNamed(context, '/DetailPage',
-                            //     arguments: {"DATA": _listData[index]});
-                            Navigator.pushNamed(context, '/DetailPage',
-                                arguments: {"DATA": _listData[index]});
-                          },
-                          child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 5.h, horizontal: 5.w),
-                              padding: EdgeInsets.only(
-                                  left: 5.w, right: 5.w, top: 3.h),
-                              decoration: setListContainerBoxDecoration(index),
-                              height: MediaQuery.of(context).size.height / 6.2,
-                              child: Column(
-                                children: [
-                                  listViewFirstRow(index),
-                                  listViewSecondRow(index),
-                                  listViewThirdRow(index),
-                                  listViewFourthdRow(index)
-                                ],
-                              )),
-                        ),
-                      );
-                    },
-                  ),
+            ? Container(
+                // margin: EdgeInsets.only(top: 5.h),
+                padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+                child: ListView.builder(
+                  itemCount: _listData.length,
+                  itemBuilder: (context, index) {
+                    return Slidable(
+                      key: ValueKey(_listData[index].documentId),
+                      actionPane: SlidableDrawerActionPane(),
+                      secondaryActions: customSwipeIconWidget(index),
+                      dismissal: setSlidableDrawerActionPane(index),
+                      child: GestureDetector(
+                        onTap: () {
+                          // Navigator.pushNamed(context, '/DetailPage',
+                          //     arguments: {"DATA": _listData[index]});
+                          Navigator.pushNamed(context, '/DetailPage',
+                              arguments: {"DATA": _listData[index]});
+                        },
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5.h, horizontal: 3.w),
+                            // padding: EdgeInsets.only(
+                            //     left: 5.w, right: 5.w, top: 3.h),
+                            decoration: setListContainerBoxDecoration(index),
+                            // height: MediaQuery.of(context).size.height / 7,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                listViewFirstRow(index),
+                                listViewSecondRow(index),
+                                listViewThirdRow(index),
+                                listViewFourthdRow(index)
+                              ],
+                            )),
+                      ),
+                    );
+                  },
                 ),
               )
             : Center(
@@ -410,25 +419,27 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
       remark = "작성된 메모가 없습니다.";
     else
       remark = _listData[index].remark;
-    return Container(
-      margin: EdgeInsets.only(bottom: 1.h),
-      child: Row(
-        children: [
-          Container(
-              child: Icon(
-            Icons.comment,
-            size: 20.sp,
-          )),
-          Expanded(
-            child: Text(
-              remark,
-              style: TextStyle(fontSize: 14.sp),
-              maxLines: 1,
-              textAlign: TextAlign.start,
-              overflow: TextOverflow.ellipsis,
+    return Flexible(
+      child: Container(
+        // margin: EdgeInsets.only(bottom: 1.h),
+        child: Row(
+          children: [
+            Container(
+                child: Icon(
+              Icons.comment,
+              size: 20.sp,
+            )),
+            Expanded(
+              child: Text(
+                remark,
+                style: TextStyle(fontSize: 13.sp),
+                maxLines: 1,
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -466,28 +477,30 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
       _addColon.insert(firstDotLocation + i * 4, ',');
     }
 
-    return Container(
-        child: Row(children: [
-      Icon(
-        Icons.cake_outlined,
-        size: 20.sp,
-      ),
-      Text(
-        !isCakePriceNull
-            ? _listData[index].cakeCategory +
-                _listData[index].cakeSize +
-                " X" +
-                _listData[index].cakeCount.toString()
-            : "EMPTY",
-        style: TextStyle(
-            color: Colors.redAccent,
-            fontWeight: FontWeight.bold,
-            fontSize: 13.sp),
-      ),
-      Spacer(),
-      Icon(Icons.money),
-      Text(!isCakeCountNull ? _addColon.join() : "EMPTY")
-    ]));
+    return Flexible(
+      child: Container(
+          child: Row(children: [
+        Icon(
+          Icons.cake_outlined,
+          size: 20.sp,
+        ),
+        Text(
+          !isCakePriceNull
+              ? _listData[index].cakeCategory +
+                  _listData[index].cakeSize +
+                  " X" +
+                  _listData[index].cakeCount.toString()
+              : "EMPTY",
+          style: TextStyle(
+              color: Colors.redAccent,
+              fontWeight: FontWeight.bold,
+              fontSize: 13.sp),
+        ),
+        Spacer(),
+        Icon(Icons.money),
+        Text(!isCakeCountNull ? _addColon.join() : "EMPTY")
+      ])),
+    );
   }
 
   listViewSecondRow(int index) {
@@ -497,20 +510,22 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
     else
       payStatus = _listData[index].payInCash || _listData[index].payInStore;
 
-    return Container(
-        margin: EdgeInsets.only(top: 3.h),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Icon(
-            Icons.payment,
-            size: 20.sp,
-          ),
-          Icon(
-            payStatus ? Icons.check : Icons.close,
-            color: Colors.redAccent,
-            size: 18.sp,
-          )
-        ]));
+    return Flexible(
+      child: Container(
+          // margin: EdgeInsets.only(top: 3.h),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Icon(
+          Icons.payment,
+          size: 20.sp,
+        ),
+        Icon(
+          payStatus ? Icons.check : Icons.close,
+          color: Colors.redAccent,
+          size: 18.sp,
+        )
+      ])),
+    );
   }
 
   listViewThirdRow(int index) {
@@ -526,59 +541,69 @@ abstract class _TodayParent<T extends StatefulWidget> extends State<T>
     if (partTimerName.length > 5)
       partTimerName = partTimerName.split('').getRange(0, 5).join();
 
-    return Expanded(
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Flexible(
-                flex: 1,
-                child: Icon(
-                  Icons.event,
-                  size: 20.sp,
+    return Flexible(
+      child: Container(
+        // margin: EdgeInsets.symmetric(vertical: 3.h),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Flexible(
+            flex: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  child: Icon(
+                    Icons.event,
+                    size: 20.sp,
+                  ),
                 ),
-              ),
-              Flexible(
-                flex: 2,
-                child: Text(
-                  !isPickUpDateNull ? pickUpDateData.join() : "EMPTY",
-                  maxLines: 1,
-                  style: TextStyle(
-                      color: Colors.redAccent,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13.sp),
+                Container(
+                  child: Expanded(
+                    child: Text(
+                      !isPickUpDateNull ? pickUpDateData.join() : "EMPTY",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.redAccent,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.sp),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: Row(
-            // mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Flexible(
-                flex: 1,
-                child: Icon(
-                  Icons.person,
-                  size: 15.sp,
+          Flexible(
+            flex: 1,
+            child: Row(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  child: Icon(
+                    Icons.person,
+                    size: 15.sp,
+                  ),
                 ),
-              ),
-              Flexible(
-                flex: 2,
-                child: Text(
-                  !isOrderDateNull
-                      ? partTimerName + "  " + orderDateData.join()
-                      : "EMPTY",
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: Colors.grey, fontSize: 10.sp),
-                ),
-              )
-            ],
+                Container(
+                  child: Flexible(
+                    child: Text(
+                      !isOrderDateNull
+                          ? partTimerName + "  " + orderDateData.join()
+                          : "EMPTY",
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 10.sp,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 }

@@ -99,7 +99,7 @@ class _CakeSettingState extends State<CakeSetting> {
                                         cakeListSnapshot[index],
                                         isUndo: false);
                                   });
-                                  _scaffoldGlobalKey.currentState.showSnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                       _snackBar(cakeListSnapshot[index]));
                                 },
                               ),
@@ -152,7 +152,7 @@ class _CakeSettingState extends State<CakeSetting> {
           setState(() {
             _firestoreDataUpdate(data, isUndo: false);
           });
-          _scaffoldGlobalKey.currentState.showSnackBar(_snackBar(data));
+          ScaffoldMessenger.of(context).showSnackBar(_snackBar(data));
         },
       )
     ];
@@ -271,10 +271,11 @@ class _CakeSettingState extends State<CakeSetting> {
                 })),
         Center(
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: Colors.white),
+            style:
+                ElevatedButton.styleFrom(elevation: 0, primary: Colors.yellow),
             child: Text(
               "저장",
-              style: TextStyle(color: Colors.redAccent),
+              style: TextStyle(color: Colors.blueAccent),
             ),
             onPressed: () async {
               FocusScope.of(context).unfocus();
@@ -406,10 +407,12 @@ class _CakeSettingState extends State<CakeSetting> {
         }
       }
     }
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("빈칸이 있는지 확인 해 주세요!"),
       duration: Duration(seconds: 1),
+      behavior: SnackBarBehavior.floating,
     ));
+
     return false;
   }
 

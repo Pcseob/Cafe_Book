@@ -74,12 +74,14 @@ class _CustomerPhoneState extends State<CustomerPhone> {
               trailing: GestureDetector(
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: customerPhone));
-                  _scaffoldGlobalKey.currentState.showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    behavior: SnackBarBehavior.floating,
                     content: Text(
                       "$customerName 전화번호 복사 완료!",
                     ),
                     duration: Duration(seconds: 1),
                   ));
+
                   if (!isClickedAtLeastOnce) {
                     setState(() {
                       clickedList.add(index);

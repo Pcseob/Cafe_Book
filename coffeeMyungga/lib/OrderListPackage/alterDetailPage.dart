@@ -30,14 +30,24 @@ class _AlterPageState extends AddOrderParent<OrderAlterPage> {
           content: Text("변경된 내용은 저장이 되지 않습니다."),
           actions: <Widget>[
             ElevatedButton(
-                child: Text('나가기'),
+                style: ElevatedButton.styleFrom(
+                    elevation: 0, primary: Colors.yellow),
+                child: Text(
+                  '나가기',
+                  style: TextStyle(color: Colors.redAccent),
+                ),
                 onPressed: () {
                   Navigator.of(context)
                       .popUntil(ModalRoute.withName("/DetailPage"));
                   // dispose();
                 }),
             ElevatedButton(
-              child: Text('유지'),
+              style: ElevatedButton.styleFrom(
+                  elevation: 0, primary: Colors.yellow),
+              child: Text(
+                '유지',
+                style: TextStyle(color: Colors.blueAccent),
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -368,6 +378,8 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
           content: Text("삭제된 내용은 복구되지 않습니다."),
           actions: <Widget>[
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  elevation: 0, primary: Colors.yellow),
               child: Text(
                 '삭제',
                 style: TextStyle(color: Colors.redAccent),
@@ -377,7 +389,12 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
               },
             ),
             ElevatedButton(
-              child: Text('유지'),
+              style: ElevatedButton.styleFrom(
+                  elevation: 0, primary: Colors.yellow),
+              child: Text(
+                '유지',
+                style: TextStyle(color: Colors.blueAccent),
+              ),
               onPressed: () {
                 Navigator.pop(context, false);
               },
@@ -410,7 +427,7 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
             .update({
           "payStatus": _cakeData.payStatus ? false : true
         }).whenComplete(() {
-          scaffoldKey.currentState.showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               behavior: SnackBarBehavior.floating,
               content: Text(
                 "결제가 업데이트 되었습니다!",
@@ -423,7 +440,7 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
             .collection("Cake")
             .doc(_cakeData.documentId)
             .update({"pickUpStatus": !_cakeData.pickUpStatus}).then((value) {
-          scaffoldKey.currentState.showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               behavior: SnackBarBehavior.floating,
               content: Text(
                 "픽업이 업데이트 되었습니다!",
@@ -442,7 +459,7 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
       "payInCash": payInCash,
       "payInStore": payInStore
     }).whenComplete(() {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           behavior: SnackBarBehavior.floating,
           content: Text(
             "결제가 업데이트 되었습니다!",

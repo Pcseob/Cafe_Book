@@ -211,7 +211,7 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
   }
 
   thirdLineBuild(int widgetCount) {
-    Widget cakeDropDownWidget = Row(
+    return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -230,39 +230,58 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
               child: cakeCountWidget.countWidget(
                   isvisible: selectedCakeName != null))
         ]);
-    List<Widget> result = [cakeDropDownWidget];
-    for (int i = 0; i < widgetCount; i++) {
-      result.add(GestureDetector(
-          onLongPress: () {
-            showMenu(context: context, position: , items: items);
-            // showMenu(
-            //     // onSelected: () => setState(() => imageList.remove(index)),
-            //     items: <PopupMenuEntry>[
-            //       PopupMenuItem(
-            //         value: this._index,
-            //         child: Row(
-            //           children: <Widget>[
-            //             Icon(Icons.delete),
-            //             Text("삭제"),
-            //           ],
-            //         ),
-            //       )
-            //     ],
-            //     context: context,
-            //   );
-          },
-          child: cakeDropDownWidget));
-    }
-    return Column(
-        children: result
-          ..add(Center(
-              child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      ++cakeCategoryCount;
-                    });
-                  },
-                  icon: Icon(Icons.add)))));
+    // Widget cakeDropDownWidget = Row(
+    //     mainAxisAlignment: MainAxisAlignment.start,
+    //     crossAxisAlignment: CrossAxisAlignment.center,
+    //     children: [
+    //       Flexible(
+    //         child: customDropDown.selectCakeCategory(
+    //           selectedCakeName,
+    //         ),
+    //       ),
+    //       Flexible(
+    //         child: customDropDown.selectCakePrice(
+    //             currentCakeCategory: selectedCakeName,
+    //             cakeList: cakeSizeList,
+    //             selectedCakeSize: selectedCakeSize),
+    //       ),
+    //       Flexible(
+    //           child: cakeCountWidget.countWidget(
+    //               isvisible: selectedCakeName != null))
+    //     ]);
+    // List<Widget> result = [cakeDropDownWidget];
+    // for (int i = 0; i < widgetCount; i++) {
+    //   result.add(GestureDetector(
+    //       onLongPress: () {
+    //         showMenu(context: context, position: , items: items);
+    //         // showMenu(
+    //         //     // onSelected: () => setState(() => imageList.remove(index)),
+    //         //     items: <PopupMenuEntry>[
+    //         //       PopupMenuItem(
+    //         //         value: this._index,
+    //         //         child: Row(
+    //         //           children: <Widget>[
+    //         //             Icon(Icons.delete),
+    //         //             Text("삭제"),
+    //         //           ],
+    //         //         ),
+    //         //       )
+    //         //     ],
+    //         //     context: context,
+    //         //   );
+    //       },
+    //       child: cakeDropDownWidget));
+    // }
+    // return Column(
+    //     children: result
+    //       ..add(Center(
+    //           child: IconButton(
+    //               onPressed: () {
+    //                 setState(() {
+    //                   ++cakeCategoryCount;
+    //                 });
+    //               },
+    //               icon: Icon(Icons.add)))));
   }
 
   fourthLineBuild() {
@@ -326,10 +345,10 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
       child: Center(
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  side: BorderSide(color: Colors.blueAccent)),
+              primary: Colors.yellow,
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(5.0),
+              //     side: BorderSide(color: Colors.blueAccent)),
             ),
             child: Text(
               "저장",
@@ -384,13 +403,23 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
           content: Text("변경된 내용은 저장이 되지 않습니다."),
           actions: <Widget>[
             ElevatedButton(
-              child: Text('나가기'),
+              style: ElevatedButton.styleFrom(
+                  elevation: 0, primary: Colors.yellow),
+              child: Text(
+                '나가기',
+                style: TextStyle(color: Colors.redAccent),
+              ),
               onPressed: () {
                 Navigator.of(context).popUntil(ModalRoute.withName("/"));
               },
             ),
             ElevatedButton(
-              child: Text('유지'),
+              style: ElevatedButton.styleFrom(
+                  elevation: 0, primary: Colors.yellow),
+              child: Text(
+                '유지',
+                style: TextStyle(color: Colors.blueAccent),
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -444,11 +473,13 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
     }
     if (error != null) {
       var snackBar = SnackBar(
+          behavior: SnackBarBehavior.floating,
           content: Text(
             "${error.errorComment}",
           ),
           duration: Duration(seconds: 1));
-      scaffoldKey.currentState.showSnackBar(snackBar);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
       return true;
     }
     return false;
@@ -595,7 +626,8 @@ abstract class AddOrderParent<T extends StatefulWidget> extends State<T> {
                   ),
                   controller: textEditingControllerRemark,
                   keyboardType: TextInputType.multiline,
-                  maxLines: null,
+                  maxLines: 4,
+                  minLines: 2,
                   style: TextStyle(
                     fontSize: 15.sp,
                   ),
