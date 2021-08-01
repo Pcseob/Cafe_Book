@@ -27,7 +27,6 @@ class CakeOrderApp extends StatefulWidget {
 
 class _CakeOrderAppState extends State<CakeOrderApp> {
   SetProvider db = SetProvider(); //get provider
-  @override
   var _os = CurrentOSCheck.instance;
   int _selectedIndex = 0;
   bool isSavePassword;

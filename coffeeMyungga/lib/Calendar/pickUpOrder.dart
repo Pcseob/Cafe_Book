@@ -145,6 +145,7 @@ abstract class _CalendarParent<T extends StatefulWidget> extends State<T>
   //   );
   // }
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     return SmartRefresher(
       key: _refresherKey,
