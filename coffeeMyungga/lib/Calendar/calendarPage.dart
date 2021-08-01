@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pickUpOrder.dart';
-import 'package:cakeorder/ProviderPackage/cakeDataClass.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CalendarPage extends StatefulWidget {
   @override
@@ -17,7 +17,6 @@ class _CalendarPageState extends State<CalendarPage>
   // final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // _calendarPickUp = CalendarPickUp();
     // _calendarOrder = CalendarOrder();
@@ -43,8 +42,8 @@ class _CalendarPageState extends State<CalendarPage>
               bottom: TabBar(
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(
-                    borderSide: BorderSide(width: 5.0),
-                    insets: EdgeInsets.symmetric(horizontal: 16.0)),
+                    borderSide: BorderSide(width: 5.0.w),
+                    insets: EdgeInsets.symmetric(horizontal: 16.0.h)),
                 onTap: (index) {},
                 tabs: [
                   Tab(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CakeCountWidget {
   int cakeCount;
@@ -15,11 +16,11 @@ class CakeCountWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.only(top: 15),
+            margin: EdgeInsets.only(top: 15.h),
             child: Text(
               '수량',
               style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   color: Colors.redAccent,
                   fontWeight: FontWeight.bold),
             ),
@@ -59,7 +60,7 @@ class CakeCountWidget {
         child: Text(
       _text,
       style: TextStyle(
-          fontSize: !isDetailPage ? 13 : 15, fontWeight: FontWeight.bold),
+          fontSize: !isDetailPage ? 13.sp : 15.sp, fontWeight: FontWeight.bold),
     ));
   }
 

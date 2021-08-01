@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BugReportPage extends StatefulWidget {
   BugReportPage({Key key}) : super(key: key);
@@ -22,7 +23,7 @@ class _BugReportPageState extends State<BugReportPage> {
         },
         child: Icon(
           Icons.add,
-          size: 30,
+          size: 30.sp,
           color: Colors.black,
         ),
       ),
@@ -69,7 +70,7 @@ class _BugReportPageState extends State<BugReportPage> {
                       children: [
                         Center(child: Container(child: Text("제보된 버그가 없습니다!"))),
                         IconButton(
-                            icon: Icon(Icons.add, size: 30),
+                            icon: Icon(Icons.add, size: 30.sp),
                             onPressed: () {
                               showtDialog();
                               textEditingControllerBug.clear();
@@ -86,7 +87,8 @@ class _BugReportPageState extends State<BugReportPage> {
                           itemCount: snapshot.data.size,
                           itemBuilder: (context, index) {
                             return Container(
-                              margin: EdgeInsets.all(5),
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5.h, horizontal: 5.w),
                               decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5)),
@@ -123,16 +125,17 @@ class _BugReportPageState extends State<BugReportPage> {
                           icon: Icon(Icons.cancel_outlined, color: Colors.red),
                           onPressed: () => Navigator.pop(context)),
                       Container(
-                          margin: EdgeInsets.only(top: 10, bottom: 10),
+                          margin: EdgeInsets.symmetric(vertical: 10.h),
                           child: Text(
                             "버그 제보하기",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 20.sp),
                           )),
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.all(5),
-                    padding: EdgeInsets.only(left: 5, right: 5),
+                    margin:
+                        EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+                    padding: EdgeInsets.symmetric(horizontal: 5.w),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: Colors.black, width: 1)),
@@ -144,8 +147,13 @@ class _BugReportPageState extends State<BugReportPage> {
                       minLines: 5,
                     ),
                   ),
-                  RaisedButton(
-                      child: Text("저장"),
+                  ElevatedButton(
+                      child: Text(
+                        "저장",
+                        style: TextStyle(color: Colors.blueAccent),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0, primary: Colors.yellow),
                       onPressed: () {
                         if (textEditingControllerBug.text != "") {
                           FirebaseFirestore.instance

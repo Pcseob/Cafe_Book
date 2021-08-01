@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'bugReportPage.dart';
 import 'package:cakeorder/Alter/passwordPage.dart';
 import 'package:cakeorder/ProviderPackage/cakeDataClass.dart';
@@ -26,7 +27,6 @@ class CakeOrderApp extends StatefulWidget {
 
 class _CakeOrderAppState extends State<CakeOrderApp> {
   SetProvider db = SetProvider(); //get provider
-  @override
   var _os = CurrentOSCheck.instance;
   int _selectedIndex = 0;
   bool isSavePassword;
@@ -46,14 +46,6 @@ class _CakeOrderAppState extends State<CakeOrderApp> {
 
   @override
   Widget build(BuildContext context) {
-    // _widgetOptions = <Widget>[
-    //   TodayList(),
-    //   CalendarPage(),
-    //   AlterPage(),
-    //   // PasswordPage(
-    //   //     setPasswordCallback: passwordCallback,
-    //   //     correctPassword: isSavePassword)
-    // ];
     _widgetOptions = <Widget>[
       TodayList(),
       CalendarPage(),
@@ -114,19 +106,21 @@ class _CakeOrderAppState extends State<CakeOrderApp> {
               value: new CustomerProvider()),
         ],
         child: _os['Android']
-            ? MaterialApp(
-                home: SafeArea(
-                    child: Scaffold(
-                        body: Center(
-                          child: _widgetOptions.elementAt(_selectedIndex),
-                        ),
-                        bottomNavigationBar: CustomBottomNavi()
-                            .bottomNavigationContainer(
-                                selectedIndex: _selectedIndex,
-                                setStateCallback: changeNaviIndex))),
-                theme: ThemeData(primaryColor: Colors.white),
-                initialRoute: '/',
-                onGenerateRoute: CakeOrderRouteGenerator.generateRoute,
+            ? ScreenUtilInit(
+                builder: () => MaterialApp(
+                  home: SafeArea(
+                      child: Scaffold(
+                          body: Center(
+                            child: _widgetOptions.elementAt(_selectedIndex),
+                          ),
+                          bottomNavigationBar: CustomBottomNavi()
+                              .bottomNavigationContainer(
+                                  selectedIndex: _selectedIndex,
+                                  setStateCallback: changeNaviIndex))),
+                  theme: ThemeData(primaryColor: Colors.white),
+                  initialRoute: '/',
+                  onGenerateRoute: CakeOrderRouteGenerator.generateRoute,
+                ),
               )
             : CupertinoApp());
   }

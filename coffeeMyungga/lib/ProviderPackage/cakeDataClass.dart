@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:cakeorder/addOrderPackage/AddOrder.dart';
 
 class CakeDataError {
   final String errorName;
@@ -132,7 +131,7 @@ class CakeData {
   }
 
   factory CakeData.fromFireStore(DocumentSnapshot snapshot) {
-    var _cakeData = snapshot.data();
+    Map<dynamic, dynamic> _cakeData = snapshot.data();
     return CakeData(
         cakeCategory: _cakeData["cakeCategory"] ?? '',
         cakeCount: _cakeData["cakeCount"] ?? 1,
@@ -190,7 +189,7 @@ class CakeDataOrder extends CakeData {
             payInStore: payInStore);
 
   factory CakeDataOrder.fromFireStore(DocumentSnapshot snapshot) {
-    var _cakeData = snapshot.data();
+    Map<dynamic, dynamic> _cakeData = snapshot.data();
     return CakeDataOrder(
         cakeCategory: _cakeData["cakeCategory"] ?? '',
         cakeCount: _cakeData["cakeCount"] ?? 1,
@@ -249,7 +248,7 @@ class CakeDataPickUp extends CakeData {
         );
 
   factory CakeDataPickUp.fromFireStore(DocumentSnapshot snapshot) {
-    var _cakeData = snapshot.data();
+    Map<dynamic, dynamic> _cakeData = snapshot.data();
     return CakeDataPickUp(
         cakeCategory: _cakeData["cakeCategory"] ?? '',
         cakeCount: _cakeData["cakeCount"] ?? 1,
@@ -306,7 +305,7 @@ class CakeDataCalendarPickUp extends CakeData {
             payInCash: payInCash,
             remark: remark);
   factory CakeDataCalendarPickUp.fromFireStore(DocumentSnapshot snapshot) {
-    var _cakeData = snapshot.data();
+    Map<dynamic, dynamic> _cakeData = snapshot.data();
     return CakeDataCalendarPickUp(
         cakeCategory: _cakeData["cakeCategory"] ?? '',
         cakeCount: _cakeData["cakeCount"] ?? 1,
@@ -363,7 +362,7 @@ class CakeDataCalendarOrder extends CakeData {
             payInCash: payInCash,
             remark: remark);
   factory CakeDataCalendarOrder.fromFireStore(DocumentSnapshot snapshot) {
-    var _cakeData = snapshot.data();
+    Map<dynamic, dynamic> _cakeData = snapshot.data();
     return CakeDataCalendarOrder(
         cakeCategory: _cakeData["cakeCategory"] ?? '',
         cakeCount: _cakeData["cakeCount"] ?? 1,
@@ -390,7 +389,8 @@ class CakeCategory {
   final List<dynamic> cakePrice;
   CakeCategory({this.name, this.cakePrice, this.cakeSize});
   factory CakeCategory.fromFireStore(DocumentSnapshot snapshot) {
-    var _data = snapshot.data()["CakePrice"];
+    Map<dynamic, dynamic> _cakeCategory = snapshot.data();
+    var _data = _cakeCategory["CakePrice"];
     return CakeCategory(
         name: snapshot.id ?? '',
         cakeSize: _data.keys.toList() ?? [],

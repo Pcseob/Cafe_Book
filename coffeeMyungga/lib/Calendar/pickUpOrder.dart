@@ -5,6 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
 import '../ProviderPackage/cakeDataClass.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CalendarPickUp extends StatefulWidget {
   @override
@@ -144,8 +145,8 @@ abstract class _CalendarParent<T extends StatefulWidget> extends State<T>
   //   );
   // }
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SmartRefresher(
       key: _refresherKey,
       controller: _refreshController,
@@ -174,7 +175,7 @@ abstract class _CalendarParent<T extends StatefulWidget> extends State<T>
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         _buildTableCalendar(),
-        const SizedBox(height: 8.0),
+        SizedBox(height: 8.0.h),
         Flexible(
           child: _buildEventList(),
         ),
@@ -197,7 +198,7 @@ abstract class _CalendarParent<T extends StatefulWidget> extends State<T>
             ),
             headerStyle: HeaderStyle(
               formatButtonTextStyle:
-                  TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
+                  TextStyle().copyWith(color: Colors.white, fontSize: 15.0.sp),
               formatButtonDecoration: BoxDecoration(
                 color: Colors.deepOrange[400],
                 borderRadius: BorderRadius.circular(16.0),
@@ -220,13 +221,18 @@ abstract class _CalendarParent<T extends StatefulWidget> extends State<T>
                   ? event.pickUpDate.toString().split('')
                   : event.orderDate.toString().split('');
               _date.removeRange(_date.length - 7, _date.length);
+              String remark =
+                  "메모 : ${event.remark != "" ? event.remark : "메모가 없습니다."}";
+              String name =
+                  "이름 : ${event.customerName != "" ? event.customerName : ""}";
+              String phone = "연락처 : ${event.customerPhone}";
               return Container(
                 decoration: BoxDecoration(
-                  border: Border.all(width: 0.8),
+                  border: Border.all(width: 0.8.w),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 margin:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 4.0.h),
                 child: ListTile(
                     leading: Icon(Icons.cake),
                     title: Text(event.cakeCategory +
@@ -235,22 +241,43 @@ abstract class _CalendarParent<T extends StatefulWidget> extends State<T>
                         event.cakeCount.toString() +
                         "개 "),
                     subtitle: Container(
-                      margin: EdgeInsets.only(left: 5),
+                      margin: EdgeInsets.only(left: 5.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(_date.join()),
                           Text(
-                            event.customerName,
-                            style: TextStyle(fontSize: 13),
-                          )
+                            "${isPickUpCalendar ? "픽업" : "주문"} : ${_date.join().toString()}",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          //이름 보여주기
+                          Text(
+                            name,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 13.sp),
+                            maxLines: 1,
+                          ),
+                          //전화번호
+                          Text(
+                            phone,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 13.sp),
+                            maxLines: 1,
+                          ),
+                          //메모된 내용 보여주기
+                          Text(
+                            remark,
+                            style: TextStyle(fontSize: 13.sp),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
                         ],
                       ),
                     ),
                     trailing: Container(
                         child: Row(mainAxisSize: MainAxisSize.min, children: [
                       Container(
-                          margin: EdgeInsets.only(left: 5, right: 5),
+                          margin: EdgeInsets.symmetric(horizontal: 5.w),
                           child: Icon(
                             Icons.payment,
                             color: event.payStatus != null
@@ -263,7 +290,7 @@ abstract class _CalendarParent<T extends StatefulWidget> extends State<T>
                             // color: event.payStatus ? Colors.red : Colors.grey,
                           )),
                       Container(
-                        margin: EdgeInsets.only(left: 5, right: 5),
+                        margin: EdgeInsets.symmetric(horizontal: 5.w),
                         child: Icon(
                           Icons.shopping_bag_outlined,
                           color: event.pickUpStatus ? Colors.red : Colors.grey,

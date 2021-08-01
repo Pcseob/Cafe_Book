@@ -1,11 +1,7 @@
-import 'package:cakeorder/ProviderPackage/cakeDataClass.dart';
 import 'package:cakeorder/ProviderPackage/myprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
-import 'package:tip_dialog/tip_dialog.dart';
-import 'package:provider/provider.dart';
 
 class CustomerPhone extends StatefulWidget {
   final CustomerProvider customerProvider;
@@ -21,8 +17,8 @@ class _CustomerPhoneState extends State<CustomerPhone> {
 
   CustomerProvider customerProvider;
   ScrollController scrollController;
-  double device_height;
-  double device_width;
+  double deviceHeight;
+  double deviceWidth;
   @override
   void initState() {
     super.initState();
@@ -39,9 +35,14 @@ class _CustomerPhoneState extends State<CustomerPhone> {
   }
 
   @override
+  void didChangeDependencies() {
+    deviceHeight = MediaQuery.of(context).size.height;
+    deviceWidth = MediaQuery.of(context).size.width;
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    device_height = MediaQuery.of(context).size.height;
-    device_width = MediaQuery.of(context).size.width;
     bool customerProviderIsEmpty = customerProvider == null;
 
     return Scaffold(
@@ -65,7 +66,7 @@ class _CustomerPhoneState extends State<CustomerPhone> {
           String customerPhone = customerProvider.data[index].phoneNumber;
           return Container(
             color: isClickedAtLeastOnce ? Colors.yellowAccent : Colors.white,
-            height: device_height / 9,
+            height: deviceHeight / 9,
             child: ListTile(
               leading: Icon(Icons.person),
               title: Text(customerName),
@@ -73,12 +74,14 @@ class _CustomerPhoneState extends State<CustomerPhone> {
               trailing: GestureDetector(
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: customerPhone));
-                  _scaffoldGlobalKey.currentState.showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    behavior: SnackBarBehavior.floating,
                     content: Text(
                       "$customerName 전화번호 복사 완료!",
                     ),
                     duration: Duration(seconds: 1),
                   ));
+
                   if (!isClickedAtLeastOnce) {
                     setState(() {
                       clickedList.add(index);
@@ -86,8 +89,8 @@ class _CustomerPhoneState extends State<CustomerPhone> {
                   }
                 },
                 child: Container(
-                  width: device_width / 5,
-                  height: device_height / 15,
+                  width: deviceWidth / 5,
+                  height: deviceHeight / 15,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                       color: Colors.black),

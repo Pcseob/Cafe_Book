@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CakeSetting extends StatefulWidget {
   CakeSetting({Key key}) : super(key: key);
@@ -98,7 +99,7 @@ class _CakeSettingState extends State<CakeSetting> {
                                         cakeListSnapshot[index],
                                         isUndo: false);
                                   });
-                                  _scaffoldGlobalKey.currentState.showSnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                       _snackBar(cakeListSnapshot[index]));
                                 },
                               ),
@@ -151,7 +152,7 @@ class _CakeSettingState extends State<CakeSetting> {
           setState(() {
             _firestoreDataUpdate(data, isUndo: false);
           });
-          _scaffoldGlobalKey.currentState.showSnackBar(_snackBar(data));
+          ScaffoldMessenger.of(context).showSnackBar(_snackBar(data));
         },
       )
     ];
@@ -191,15 +192,16 @@ class _CakeSettingState extends State<CakeSetting> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(top: 15, left: 5),
+                                  margin: EdgeInsets.only(top: 15.h, left: 5.w),
                                   child: Text("케이크 이름",
                                       style: TextStyle(
                                           color: Colors.redAccent,
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.only(left: 5),
-                                  margin: EdgeInsets.all(5),
+                                  padding: EdgeInsets.only(left: 5.w),
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 5.h, horizontal: 5.w),
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           color: Colors.grey, width: 2),
@@ -268,11 +270,12 @@ class _CakeSettingState extends State<CakeSetting> {
                   });
                 })),
         Center(
-          child: RaisedButton(
-            color: Colors.white,
+          child: ElevatedButton(
+            style:
+                ElevatedButton.styleFrom(elevation: 0, primary: Colors.yellow),
             child: Text(
               "저장",
-              style: TextStyle(color: Colors.redAccent),
+              style: TextStyle(color: Colors.blueAccent),
             ),
             onPressed: () async {
               FocusScope.of(context).unfocus();
@@ -330,14 +333,14 @@ class _CakeSettingState extends State<CakeSetting> {
       actionPane: SlidableDrawerActionPane(),
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Container(
-            margin: EdgeInsets.only(left: 10),
+            margin: EdgeInsets.only(left: 10.w),
             width: MediaQuery.of(context).size.width / 3.5,
             child: TextFormField(
               key: ValueKey("Price${number.toString}"),
               initialValue: initialvalueCakeSize,
               decoration: new InputDecoration(
                 hintText: "케이크 사이즈",
-                hintStyle: TextStyle(fontSize: 13),
+                hintStyle: TextStyle(fontSize: 13.sp),
               ),
               onChanged: (value) {
                 if (saveCakeSizeList.length >= number + 1) {
@@ -350,7 +353,7 @@ class _CakeSettingState extends State<CakeSetting> {
               },
             )),
         Container(
-            margin: EdgeInsets.only(left: 8),
+            margin: EdgeInsets.only(left: 8.w),
             width: MediaQuery.of(context).size.width / 3.5,
             child: TextFormField(
               key: ValueKey("Size${number.toString}"),
@@ -358,7 +361,7 @@ class _CakeSettingState extends State<CakeSetting> {
               initialValue: initialvalueCakePrice,
               decoration: new InputDecoration(
                 hintText: "케이크 가격",
-                hintStyle: TextStyle(fontSize: 13),
+                hintStyle: TextStyle(fontSize: 13.sp),
               ),
               onChanged: (value) {
                 if (saveCakePriceList.length >= number + 1) {
@@ -404,10 +407,12 @@ class _CakeSettingState extends State<CakeSetting> {
         }
       }
     }
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("빈칸이 있는지 확인 해 주세요!"),
       duration: Duration(seconds: 1),
+      behavior: SnackBarBehavior.floating,
     ));
+
     return false;
   }
 

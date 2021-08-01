@@ -1,10 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class PartTimer {
   final String name;
   PartTimer({this.name});
 
-  factory PartTimer.fromMap(Map map) {
-    return PartTimer(name: map['']);
+  factory PartTimer.fromFirebaseDatabase(DataSnapshot dataSnapshot) {
+    Map<dynamic, dynamic> value = dataSnapshot.value ?? {};
+    return PartTimer(name: value["name"]);
   }
 }

@@ -5,7 +5,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:date_util/date_util.dart';
 import 'package:async/async.dart';
-import 'package:cakeorder/ProviderPackage/cakeDataClass.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReportPage extends StatefulWidget {
   ReportPage({Key key}) : super(key: key);
@@ -23,8 +23,8 @@ class _ReportPageState extends State<ReportPage> {
   double totalEarning;
   String totalEarningIncludeDot;
 
-  var device_width;
-  var device_height;
+  double deviceWidth;
+  double deviceHeight;
 
   DateTime today;
   DateTime monthStart;
@@ -45,27 +45,31 @@ class _ReportPageState extends State<ReportPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    device_width = MediaQuery.of(context).size.width;
-    device_height = MediaQuery.of(context).size.height;
+  void didChangeDependencies() {
+    deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
+    super.didChangeDependencies();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Report"),
       ),
       body: SlidingUpPanel(
           onPanelClosed: () {},
-          maxHeight: device_height / 3,
+          maxHeight: deviceHeight / 3,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
-          minHeight: device_height / 12,
+          minHeight: deviceHeight / 12,
           panel: Column(
             children: [
               Center(
                   child: Container(
-                      margin: EdgeInsets.only(top: 5),
-                      height: device_height / 130,
-                      width: device_width / 10,
+                      margin: EdgeInsets.only(top: 5.h),
+                      height: deviceHeight / 130,
+                      width: deviceWidth / 10,
                       decoration: BoxDecoration(
                           color: Colors.grey[300],
                           borderRadius: BorderRadius.all(Radius.circular(5))))),
@@ -73,13 +77,13 @@ class _ReportPageState extends State<ReportPage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
-                height: device_height / 15,
-                width: device_width,
+                height: deviceHeight / 15,
+                width: deviceWidth,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      // margin: EdgeInsets.only(top: device_height / 100),
+                      // margin: EdgeInsets.only(top: deviceHeight / 100),
                       child: Text(
                         "YEAR : " + selectedDate.year.toString(),
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -87,7 +91,7 @@ class _ReportPageState extends State<ReportPage> {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                        left: device_width / 10,
+                        left: deviceWidth / 10,
                       ),
                       child: Text(
                         "MONTH : " + selectedDate.month.toString(),
@@ -121,10 +125,10 @@ class _ReportPageState extends State<ReportPage> {
           bottomTitles: SideTitles(
             showTitles: true,
             reservedSize: 22,
-            getTextStyles: (value) => const TextStyle(
+            getTextStyles: (value) => TextStyle(
               color: Color(0xff72719b),
               // fontWeight: FontWeight.bold,
-              fontSize: 7,
+              fontSize: 7.sp,
             ),
             margin: 10,
             getTitles: (value) {
@@ -134,10 +138,10 @@ class _ReportPageState extends State<ReportPage> {
           leftTitles: SideTitles(
             interval: bestEarning / 4,
             showTitles: true,
-            getTextStyles: (value) => const TextStyle(
+            getTextStyles: (value) => TextStyle(
               color: Color(0xff75729e),
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              fontSize: 14.sp,
             ),
             getTitles: (value) {
               return "${value.toDouble().toString().split('.')[0]}";
@@ -151,7 +155,7 @@ class _ReportPageState extends State<ReportPage> {
             border: Border(
               bottom: BorderSide(
                 color: Colors.grey,
-                width: 4,
+                width: 4.w,
               ),
               left: BorderSide(
                 color: Colors.transparent,
@@ -234,12 +238,12 @@ class _ReportPageState extends State<ReportPage> {
 
   _calendarYearButton() {
     return Container(
-      height: device_height / 15,
+      height: deviceHeight / 15,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: device_width / 8,
+            width: deviceWidth / 8,
             child: IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios,
@@ -264,11 +268,11 @@ class _ReportPageState extends State<ReportPage> {
           ),
           selectedDate.year != DateTime.now().year
               ? Container(
-                  width: device_width / 8,
+                  width: deviceWidth / 8,
                   child: IconButton(
                       icon: Icon(
                         Icons.arrow_forward_ios,
-                        size: 15,
+                        size: 15.sp,
                       ),
                       onPressed: () {
                         setState(() {
@@ -284,7 +288,7 @@ class _ReportPageState extends State<ReportPage> {
                       }),
                 )
               : Container(
-                  width: device_width / 8,
+                  width: deviceWidth / 8,
                 )
         ],
       ),
@@ -313,8 +317,8 @@ class _ReportPageState extends State<ReportPage> {
         int currentMonth = (i * 6) + j + 1;
         rowWidgetList.add(Container(
           padding: EdgeInsets.all(5),
-          height: device_height / 12,
-          width: device_width / 6,
+          height: deviceHeight / 12,
+          width: deviceWidth / 6,
           child: Container(
             decoration: BoxDecoration(
               color: currentMonth != selectedDate.month.toInt()
@@ -404,12 +408,12 @@ class _ReportPageState extends State<ReportPage> {
                                 children: <Widget>[
                                   Container(
                                     margin: EdgeInsets.only(
-                                        top: device_height / 100),
+                                        top: deviceHeight / 100),
                                     child: Text(
                                       '커피명가 ${selectedDate.year.toString()}년 ${selectedDate.month.toString()}월',
                                       style: TextStyle(
                                         color: Color(0xff827daa),
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
@@ -418,7 +422,7 @@ class _ReportPageState extends State<ReportPage> {
                                     'Daily Sales',
                                     style: TextStyle(
                                         color: Colors.orange[300],
-                                        fontSize: 30,
+                                        fontSize: 30.sp,
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 2),
                                     textAlign: TextAlign.center,
@@ -428,8 +432,8 @@ class _ReportPageState extends State<ReportPage> {
                                   ),
                                   Expanded(
                                     child: Container(
-                                      padding:
-                                          EdgeInsets.only(right: 16, left: 6),
+                                      padding: EdgeInsets.only(
+                                          right: 16.w, left: 6.w),
                                       child: LineChart(
                                         settingChartData(
                                             setFlSpotList(snapshot.data)),
@@ -438,7 +442,8 @@ class _ReportPageState extends State<ReportPage> {
                                     // ),
                                   ),
                                   Container(
-                                      margin: EdgeInsets.only(left: 5, top: 10),
+                                      margin:
+                                          EdgeInsets.only(left: 5.w, top: 10.h),
                                       child: Text(
                                         "단위 : 1000원",
                                         style: TextStyle(
@@ -452,15 +457,15 @@ class _ReportPageState extends State<ReportPage> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 5),
+                        margin: EdgeInsets.only(top: 5.h),
                         child: Center(
                           child: Text(
                             // "TOTAL : ${(totalEarning * 1000).toString().split('.')[0]}원",
-                            "TOTAL : ${totalEarningIncludeDot}원",
+                            "TOTAL : $totalEarningIncludeDot원",
                             style: TextStyle(
                                 color: Colors.redAccent,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                                fontSize: 15.sp),
                           ),
                         ),
                       ),

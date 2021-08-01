@@ -29,15 +29,25 @@ class _AlterPageState extends AddOrderParent<OrderAlterPage> {
           title: Text('수정 중'),
           content: Text("변경된 내용은 저장이 되지 않습니다."),
           actions: <Widget>[
-            FlatButton(
-                child: Text('나가기'),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    elevation: 0, primary: Colors.yellow),
+                child: Text(
+                  '나가기',
+                  style: TextStyle(color: Colors.redAccent),
+                ),
                 onPressed: () {
                   Navigator.of(context)
                       .popUntil(ModalRoute.withName("/DetailPage"));
                   // dispose();
                 }),
-            FlatButton(
-              child: Text('유지'),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  elevation: 0, primary: Colors.yellow),
+              child: Text(
+                '유지',
+                style: TextStyle(color: Colors.blueAccent),
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -58,7 +68,6 @@ class _AlterPageState extends AddOrderParent<OrderAlterPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -169,10 +178,8 @@ class _AlterPageState extends AddOrderParent<OrderAlterPage> {
   }
 
   @override
-  thirdLineBuild() {
-    return super.thirdLineBuild();
-
-    // TODO: implement thirdLineBuild
+  thirdLineBuild(int i) {
+    return super.thirdLineBuild(1);
   }
 
   @override
@@ -370,7 +377,9 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
           title: Text('삭제'),
           content: Text("삭제된 내용은 복구되지 않습니다."),
           actions: <Widget>[
-            FlatButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  elevation: 0, primary: Colors.yellow),
               child: Text(
                 '삭제',
                 style: TextStyle(color: Colors.redAccent),
@@ -379,8 +388,13 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
                 Navigator.pop(context, true);
               },
             ),
-            FlatButton(
-              child: Text('유지'),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  elevation: 0, primary: Colors.yellow),
+              child: Text(
+                '유지',
+                style: TextStyle(color: Colors.blueAccent),
+              ),
               onPressed: () {
                 Navigator.pop(context, false);
               },
@@ -413,7 +427,7 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
             .update({
           "payStatus": _cakeData.payStatus ? false : true
         }).whenComplete(() {
-          scaffoldKey.currentState.showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               behavior: SnackBarBehavior.floating,
               content: Text(
                 "결제가 업데이트 되었습니다!",
@@ -426,7 +440,7 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
             .collection("Cake")
             .doc(_cakeData.documentId)
             .update({"pickUpStatus": !_cakeData.pickUpStatus}).then((value) {
-          scaffoldKey.currentState.showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               behavior: SnackBarBehavior.floating,
               content: Text(
                 "픽업이 업데이트 되었습니다!",
@@ -445,7 +459,7 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
       "payInCash": payInCash,
       "payInStore": payInStore
     }).whenComplete(() {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           behavior: SnackBarBehavior.floating,
           content: Text(
             "결제가 업데이트 되었습니다!",
@@ -455,7 +469,7 @@ class _DetailPageState extends AddOrderParent<DetailPage> {
   }
 
   @override
-  thirdLineBuild() {
+  thirdLineBuild(int i) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
