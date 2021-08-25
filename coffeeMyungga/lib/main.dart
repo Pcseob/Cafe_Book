@@ -1,13 +1,13 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'bugReportPage.dart';
 import 'package:cakeorder/Alter/passwordPage.dart';
-import 'package:cakeorder/ProviderPackage/cakeDataClass.dart';
+
 import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
+
 import 'OrderListPackage/todayPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'ProviderPackage/myprovider.dart';
+
 import 'customBottomNavi.dart';
 import 'checkingOS.dart';
 import 'cakeOrderRoute.dart';
@@ -26,7 +26,6 @@ class CakeOrderApp extends StatefulWidget {
 }
 
 class _CakeOrderAppState extends State<CakeOrderApp> {
-  SetProvider db = SetProvider(); //get provider
   var _os = CurrentOSCheck.instance;
   int _selectedIndex = 0;
   bool isSavePassword;

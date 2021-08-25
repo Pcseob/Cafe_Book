@@ -35,7 +35,7 @@ dependencies:
   cloud_firestore: ^2.4.0
   firebase_auth: ^3.0.1
 
-  provider: ^4.3.2+3
+  # provider: ^4.3.2+3
   flutter_time_picker_spinner: ^1.0.6+1   
   flutter_slidable: ^0.6.0
   table_calendar: ^2.3.3
@@ -44,13 +44,15 @@ dependencies:
   fl_chart: ^0.12.2
   date_util: ^0.1.4
   pull_to_refresh: ^2.0.0
-  path_provider: ^2.0.2
+  # path_provider: ^2.0.2
   google_sign_in: ^4.5.9
   logger: ^0.9.4
   shared_preferences: ^2.0.6
+
   flutter_screenutil: ^5.0.0+2
-  riverpod: ^0.14.0+3
-  
+  #Riverpod
+  flutter_riverpod: ^0.14.0+3
+  state_notifier: ^0.7.0
   
 dev_dependencies:
   flutter_test:
