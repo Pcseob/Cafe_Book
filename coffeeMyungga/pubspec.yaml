@@ -53,6 +53,8 @@ dependencies:
   #Riverpod
   flutter_riverpod: ^0.14.0+3
   state_notifier: ^0.7.0
+  #animate listview
+  flutter_staggered_animations: ^1.0.0
   
 dev_dependencies:
   flutter_test:
