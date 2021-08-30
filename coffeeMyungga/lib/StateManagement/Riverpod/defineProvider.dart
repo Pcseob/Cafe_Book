@@ -1,4 +1,5 @@
 import 'package:cakeorder/StateManagement/DeclareData/cakeData.dart';
+import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/cakePrice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,6 +11,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //   //     await for (final value in ) {
 //   // yield value.toString();
 // });
+
+//오늘의 케이크 예약현황을 StreamProvider로 가지고 온다.
 final cakeOrderProvider = StreamProvider<List<CakeData>>((ref) {
   DateTime today = new DateTime.now();
   DateTime _todayStart = new DateTime(today.year, today.month, today.day, 0, 0);
@@ -23,7 +26,7 @@ final cakeOrderProvider = StreamProvider<List<CakeData>>((ref) {
   return stream.map((snapshot) =>
       snapshot.docs.map((doc) => CakeData.fromFireStore(doc)).toList());
 });
-
+//오늘의 케이크 픽업현황을 StreamProvider로 가지고 온다.
 final cakePickupProvider = StreamProvider<List<CakeData>>((ref) {
   DateTime today = new DateTime.now();
   DateTime _todayStart = new DateTime(today.year, today.month, today.day, 0, 0);
@@ -37,3 +40,7 @@ final cakePickupProvider = StreamProvider<List<CakeData>>((ref) {
   return stream.map((snapshot) =>
       snapshot.docs.map((doc) => CakeData.fromFireStore(doc)).toList());
 });
+
+//RealtimeDatabase에 있는 CakePrice 데이터를 가져오는 Provider.
+final cakePriceProvider =
+    ChangeNotifierProvider<CakePriceProvider>((ref) => CakePriceProvider());

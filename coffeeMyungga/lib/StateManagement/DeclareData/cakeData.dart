@@ -7,12 +7,6 @@ class CakeDataError {
   CakeDataError({this.errorName, this.errorComment});
 }
 
-class CakeSizePrice {
-  final String cakeSize;
-  final int cakePrice;
-  const CakeSizePrice(this.cakeSize, this.cakePrice);
-}
-
 class CakeData {
   //hh : 12, HH : 24
   DateFormat f = DateFormat("yyyy-MM-dd HH:mm");

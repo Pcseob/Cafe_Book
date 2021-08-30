@@ -23,7 +23,7 @@
 //   @override
 //   setInitData() {
 //     isDetailPage = false;
-//     context.read()
+    
 //   }
 // }
 
