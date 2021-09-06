@@ -1,16 +1,68 @@
+import 'package:cakeorder/StateManagement/DeclareData/cakePriceData.dart';
+import 'package:cakeorder/StateManagement/Riverpod/defineProvider.dart';
+import 'package:cakeorder/StateManagement/Riverpod/stateScreen/loadingScreen/loadingMain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CakeSetting extends StatelessWidget {
-  
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: null,
+    context.read(cakePriceProvider).fetchCakePriceData();
+    return Scaffold(
+      body: CakeSetItemBody(),
+    );
+  }
+}
+
+// CakeSetting Body부분
+class CakeSetItemBody extends ConsumerWidget {
+  final ScrollController scrollController = ScrollController();
+  @override
+  Widget build(BuildContext context, ScopedReader watch) {
+    final cakepriceDataProvider = watch(cakePriceProvider);
+    bool checkLoading = cakepriceDataProvider.isFetching;
+    //Future의 State체크
+    if (checkLoading) {
+      return Loading();
+    } else {
+      //데이터가 있는 지 없는 지 체크
+      List<CakePriceData> dataList = cakepriceDataProvider.cakePriceList;
+      if (dataList.length == 0) {
+        return Center(child: Text("데이터가 없습니다"));
+      } else {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
+          child: listViewBuilder(cakepriceDataProvider.cakePriceList),
+        );
+      }
+    }
+  }
+
+  listViewBuilder(List<CakePriceData> cakeDataList) {
+    return ListView.builder(
+        controller: scrollController,
+        shrinkWrap: true,
+        itemCount: cakeDataList.length,
+        itemBuilder: (context, index) => buildItem(cakeDataList[index]));
+  }
+
+  buildItem(CakePriceData currentCakeData) {
+    List<Widget> cakePriceColumn = [];
+    currentCakeData.cakeSizePrice.forEach((key, value) {
+      cakePriceColumn.add(Row(
+        children: [Text(key), Text(value.toString())],
+      ));
+    });
+
+    return Card(
+      child: ExpansionTile(
+        title: Text(currentCakeData.cakeName),
+        children: cakePriceColumn..add(Container()),
+      ),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:cakeorder/Alter/alterCake.dart';
+import 'package:cakeorder/StateManagement/Riverpod/defineProvider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,11 +39,7 @@ class MainBody extends StatelessWidget {
       child: Scaffold(
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(), //스와이프 작동하지 않게 함.
-          children: [
-            TodayList(),
-            Text('채팅 스크린'),
-            Text('마이 스크린'),
-          ],
+          children: [TodayList(), Text('채팅 스크린'), CakeSetting()],
         ),
         bottomNavigationBar: TabBar(tabs: [
           Tab(

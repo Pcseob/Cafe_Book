@@ -1,6 +1,6 @@
 class CakePriceData {
   final String cakeName;
-  final Map<String, String> cakeSizePrice;
+  final Map<String, int> cakeSizePrice;
 
   CakePriceData({this.cakeName, this.cakeSizePrice});
 }
