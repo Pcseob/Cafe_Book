@@ -1,12 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-class CakeDataError {
-  final String errorName;
-  final String errorComment;
-  CakeDataError({this.errorName, this.errorComment});
-}
-
 class CakeData {
   //hh : 12, HH : 24
   DateFormat f = DateFormat("yyyy-MM-dd HH:mm");
@@ -31,20 +25,20 @@ class CakeData {
   CakeData(
       {this.orderDate,
       this.pickUpDate,
-      this.cakeCategory,
-      this.cakeSize,
-      this.customerName,
-      this.cakePrice,
-      this.customerPhone,
-      this.partTimer,
-      this.remark,
-      this.payStatus,
-      this.pickUpStatus,
-      this.documentId,
-      this.cakeCount,
-      this.decoStatus,
-      this.payInCash,
-      this.payInStore});
+      required this.cakeCategory,
+      required this.cakeSize,
+      required this.customerName,
+      required this.cakePrice,
+      required this.customerPhone,
+      required this.partTimer,
+      required this.remark,
+      required this.payStatus,
+      required this.pickUpStatus,
+      required this.documentId,
+      required this.cakeCount,
+      required this.decoStatus,
+      required this.payInCash,
+      required this.payInStore});
 
   Future toFireStore(callback) async {
     this.orderDate = Timestamp.fromDate(f.parse(orderDate));
@@ -377,50 +371,51 @@ class CakeData {
 //   }
 // }
 
-class CakeCategory {
-  final String name;
-  final List<dynamic> cakeSize;
-  final List<dynamic> cakePrice;
-  CakeCategory({this.name, this.cakePrice, this.cakeSize});
-  factory CakeCategory.fromFireStore(DocumentSnapshot snapshot) {
-    Map<dynamic, dynamic> _cakeCategory = snapshot.data();
-    var _data = _cakeCategory["CakePrice"];
-    return CakeCategory(
-        name: snapshot.id ?? '',
-        cakeSize: _data.keys.toList() ?? [],
-        cakePrice: _data.values.toList() ?? []);
-  }
-  getCake(String cakeName) {
-    return FirebaseFirestore.instance
-        .collection("CakeList")
-        .doc(cakeName)
-        .get();
-  }
+// class CakeCategory {
+//   final String name;
+//   final List<dynamic> cakeSize;
+//   final List<dynamic> cakePrice;
+//   CakeCategory({required this.name,required this.cakePrice,required this.cakeSize});
+//   factory CakeCategory.fromFireStore(DocumentSnapshot snapshot) {
+//     Map<dynamic, dynamic> _cakeCategory = snapshot.data();
+//     var _data = _cakeCategory["CakePrice"];
 
-  checkCakeCateogry(String cakeName) async {
-    return await FirebaseFirestore.instance
-        .collection("CakeList")
-        .get()
-        .then((value) {
-      bool checkResult = false;
-      if (value != null) {
-        value.docs.forEach((element) {
-          if (element.id == cakeName) checkResult = true;
-        });
-      }
-      return checkResult;
-    });
-  }
-}
+//     return CakeCategory(
+//         name: snapshot.id ?? '',
+//         cakeSize: _data.keys.toList() ?? [],
+//         cakePrice: _data.values.toList() ?? []);
+//   }
+//   getCake(String cakeName) {
+//     return FirebaseFirestore.instance
+//         .collection("CakeList")
+//         .doc(cakeName)
+//         .get();
+//   }
 
-class CustomerData {
-  final String name;
-  final String phoneNumber;
-  CustomerData({this.name, this.phoneNumber});
-  factory CustomerData.fromFireStore(DocumentSnapshot snapshot) {
-    Map _cakeData = snapshot.data();
-    return CustomerData(
-        name: _cakeData["customerName"],
-        phoneNumber: _cakeData["customerPhone"]);
-  }
-}
+//   checkCakeCateogry(String cakeName) async {
+//     return await FirebaseFirestore.instance
+//         .collection("CakeList")
+//         .get()
+//         .then((value) {
+//       bool checkResult = false;
+//       if (value != null) {
+//         value.docs.forEach((element) {
+//           if (element.id == cakeName) checkResult = true;
+//         });
+//       }
+//       return checkResult;
+//     });
+//   }
+// }
+
+// class CustomerData {
+//   final String name;
+//   final String phoneNumber;
+//   CustomerData({this.name, this.phoneNumber});
+//   factory CustomerData.fromFireStore(DocumentSnapshot snapshot) {
+//     Map _cakeData = snapshot.data();
+//     return CustomerData(
+//         name: _cakeData["customerName"],
+//         phoneNumber: _cakeData["customerPhone"]);
+//   }
+// }

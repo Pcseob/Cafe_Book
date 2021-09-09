@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AlterPage extends StatefulWidget {
-  AlterPage({Key key}) : super(key: key);
+  AlterPage({Key? key}) : super(key: key);
 
   @override
   _AlterPageState createState() => _AlterPageState();
 }
 
 class _AlterPageState extends State<AlterPage> {
-  double deviceWidth;
+  double? deviceWidth;
   @override
   void initState() {
     super.initState();
