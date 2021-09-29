@@ -25,20 +25,20 @@ class CakeData {
   CakeData(
       {this.orderDate,
       this.pickUpDate,
-      required this.cakeCategory,
-      required this.cakeSize,
-      required this.customerName,
-      required this.cakePrice,
-      required this.customerPhone,
-      required this.partTimer,
-      required this.remark,
-      required this.payStatus,
-      required this.pickUpStatus,
-      required this.documentId,
-      required this.cakeCount,
-      required this.decoStatus,
-      required this.payInCash,
-      required this.payInStore});
+      this.cakeCategory,
+      this.cakeSize,
+      this.customerName,
+      this.cakePrice,
+      this.customerPhone,
+      this.partTimer,
+      this.remark,
+      this.payStatus,
+      this.pickUpStatus,
+      this.documentId,
+      this.cakeCount,
+      this.decoStatus,
+      this.payInCash,
+      this.payInStore});
 
   Future toFireStore(callback) async {
     this.orderDate = Timestamp.fromDate(f.parse(orderDate));

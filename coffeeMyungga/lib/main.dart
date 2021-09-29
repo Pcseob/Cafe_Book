@@ -1,5 +1,4 @@
-import 'package:cakeorder/Alter/alterCake.dart';
-import 'package:cakeorder/StateManagement/Riverpod/defineProvider.dart';
+import 'package:cakeorder/routeGenerator.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'Alter/setCakePrice/cakeSetMain.dart';
 import 'OrderListPackage/todayPageMain.dart';
 
 void main() async {
@@ -24,6 +24,8 @@ class CakeOrderApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
         builder: () => MaterialApp(
+              initialRoute: '/',
+              onGenerateRoute: RouteGenerator.generateRoute,
               home: SafeArea(
                 child: MainBody(),
               ),
