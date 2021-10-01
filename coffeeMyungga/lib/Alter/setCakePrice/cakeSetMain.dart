@@ -30,13 +30,13 @@ class CakeSetItemBody extends ConsumerWidget {
       return Loading();
     } else {
       //데이터가 있는 지 없는 지 체크
-      List<CakePriceData> dataList = cakepriceDataProvider.cakePriceList;
+      List<CakePriceData> dataList = cakepriceDataProvider.getData;
       if (dataList.length == 0) {
         return Center(child: Text("데이터가 없습니다"));
       } else {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
-          child: listViewBuilder(cakepriceDataProvider.cakePriceList),
+          child: listViewBuilder(cakepriceDataProvider.getData),
         );
       }
     }

@@ -1,5 +1,6 @@
 import 'package:cakeorder/StateManagement/DeclareData/cakeData.dart';
 import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/cakePrice.dart';
+import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/partTimerNotifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +22,9 @@ final cakeOrderProvider = StreamProvider<List<CakeData>>((ref) {
   final stream = FirebaseFirestore.instance
       .collection('Cake')
       .where("orderDate",
-          isGreaterThanOrEqualTo: _todayStart, isLessThanOrEqualTo: _todayEnd)
+          //예약은 현재 시간을 기준으로 가져온다
+          isGreaterThanOrEqualTo: _todayStart,
+          isLessThanOrEqualTo: _todayEnd)
       .snapshots();
   return stream.map((snapshot) =>
       snapshot.docs.map((doc) => CakeData.fromFireStore(doc)).toList());
@@ -35,7 +38,9 @@ final cakePickupProvider = StreamProvider<List<CakeData>>((ref) {
   final stream = FirebaseFirestore.instance
       .collection('Cake')
       .where("pickUpDate",
-          isGreaterThanOrEqualTo: _todayStart, isLessThanOrEqualTo: _todayEnd)
+          //픽업은 현재 시간을 기준으로 가져온다
+          isGreaterThanOrEqualTo: _todayStart,
+          isLessThanOrEqualTo: _todayEnd)
       .snapshots();
   return stream.map((snapshot) =>
       snapshot.docs.map((doc) => CakeData.fromFireStore(doc)).toList());
@@ -44,3 +49,7 @@ final cakePickupProvider = StreamProvider<List<CakeData>>((ref) {
 //RealtimeDatabase에 있는 CakePrice 데이터를 가져오는 Provider.
 final cakePriceProvider =
     ChangeNotifierProvider<CakePriceProvider>((ref) => CakePriceProvider());
+
+//RealtimeDatabase에 있는 partTimer 데이터를 가져오는 Provider.
+final partTimerProvider =
+    ChangeNotifierProvider<PartTimerProvider>((ref) => PartTimerProvider());

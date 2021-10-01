@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 //TextEditingController로 데이터 반환
 //name으로 이름 띄워줌
 //Icon으로 앞에 아이콘 설정
+//CustomDate는 DatePicker가 띄워짐
 
 class CustomDate extends StatelessWidget {
   final BuildContext context;
@@ -93,18 +94,6 @@ class CustomDate extends StatelessWidget {
     );
   }
 
-  setInitDateTime(bool isOrder, var pickUpTime) {
-    DateTime _now = DateTime.now();
-    return pickUpTime.text == ''
-        ? isOrder
-            ? _now //set Current Time
-            : DateTime.parse(DateTime.now().toString().split(' ')[0] +
-                " 12:00:00.000") //set 00
-        : DateTime.parse(DateTime.now().toString().split(' ')[0] +
-            " " +
-            pickUpTime.text +
-            ":00.000"); //set previous time
-  }
 }
 
 class CustomTimePicker extends StatelessWidget {

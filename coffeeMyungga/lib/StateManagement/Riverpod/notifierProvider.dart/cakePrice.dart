@@ -4,14 +4,17 @@ import 'package:flutter/cupertino.dart';
 
 class CakePriceProvider with ChangeNotifier {
   final _cakePriceDataList = <CakePriceData>[];
+  final _dropDownList = [];
   bool _isFetch = false;
   get isFetching => _isFetch;
-  get cakePriceList => _cakePriceDataList;
+  get getData => _cakePriceDataList;
+  get dropDownData => _dropDownList;
 
   fetchCakePriceData() async {
     if (_isFetch) return;
     _isFetch = true;
     _cakePriceDataList.clear();
+    _dropDownList.clear();
     try {
       //Realtime Database에 있는 cakePrice에서 Key-Value형식의 데이터를 가지고 옴.
       DataSnapshot dataSnapshot =
@@ -23,6 +26,7 @@ class CakePriceProvider with ChangeNotifier {
       cakePriceMap.forEach((cakeName, value) {
         _cakePriceDataList.add(new CakePriceData(
             cakeName: cakeName, cakeSizePrice: Map<String, int>.from(value)));
+        _dropDownList.add(cakeName);
       });
       notifyListeners();
     } catch (error) {
