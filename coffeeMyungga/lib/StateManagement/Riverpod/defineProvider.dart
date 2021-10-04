@@ -1,5 +1,5 @@
 import 'package:cakeorder/StateManagement/DeclareData/cakeData.dart';
-import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/cakePrice.dart';
+import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/cakePriceProvider.dart';
 import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/partTimerNotifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

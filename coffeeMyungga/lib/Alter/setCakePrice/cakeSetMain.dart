@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CakeSetting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    context.read(cakePriceProvider).fetchCakePriceData();
+    context.read(cakePriceProvider).fetchData();
     return Scaffold(
       body: CakeSetItemBody(),
     );

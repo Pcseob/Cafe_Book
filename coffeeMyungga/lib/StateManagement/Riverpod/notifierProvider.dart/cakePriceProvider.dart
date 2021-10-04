@@ -1,16 +1,23 @@
 import 'package:cakeorder/StateManagement/DeclareData/cakePriceData.dart';
+import 'package:cakeorder/StateManagement/Riverpod/providerImplement.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 
-class CakePriceProvider with ChangeNotifier {
+class CakePriceProvider with ChangeNotifier implements CustomProviderInterface {
   final _cakePriceDataList = <CakePriceData>[];
   final _dropDownList = [];
   bool _isFetch = false;
+  @override
   get isFetching => _isFetch;
+
+  @override
   get getData => _cakePriceDataList;
+
+  @override
   get dropDownData => _dropDownList;
 
-  fetchCakePriceData() async {
+  @override
+  fetchData() async {
     if (_isFetch) return;
     _isFetch = true;
     _cakePriceDataList.clear();

@@ -1,4 +1,5 @@
 import 'package:cakeorder/StateManagement/Riverpod/defineProvider.dart';
+import 'package:cakeorder/addOrderPackage/Customdropdown/addCake.dart';
 import 'package:cakeorder/addOrderPackage/Customdropdown/partTimerDropDown.dart';
 import 'package:cakeorder/addOrderPackage/selectDate.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +24,19 @@ class _AddOrderState extends State<AddOrder> {
   TextEditingController partTimerTextController;
   TextEditingController cakeCategoryTextController;
 
+  //statefulWidget에서 Build되기 전 state를 하는 단계
   @override
   void initState() {
     initTextEdit();
-    context.read(partTimerProvider).fetchPartTimerData();
-    context.read(cakePriceProvider).fetchCakePriceData();
+    context.read(partTimerProvider).fetchData();
+    context.read(cakePriceProvider).fetchData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    partTimerTextController.dispose();
+    super.dispose();
   }
 
   initTextEdit() {
@@ -55,14 +63,20 @@ class _AddOrderState extends State<AddOrder> {
             children: [
               setOrderDateWidget(true),
               setPickUpDateWidget(true),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustomDropDown(
+                    provider: cakePriceProvider,
+                    textEditingController: cakeCategoryTextController,
+                  ),
+                ],
+              ),
               CustomDropDown(
                 provider: partTimerProvider,
                 textEditingController: partTimerTextController,
               ),
-              CustomDropDown(
-                provider: cakePriceProvider,
-                textEditingController: cakeCategoryTextController,
-              )
+              AddCake(),
             ],
           ),
         ),
