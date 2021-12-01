@@ -1,78 +1,111 @@
+import 'package:cakeorder/StateManagement/DeclareData/cakeData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CakeCountWidget {
-  int cakeCount;
-  Function callback;
-  final bool isDetailPage;
-  CakeCountWidget({this.cakeCount, this.callback, this.isDetailPage});
+class CakeCountWidget extends StatelessWidget {
+  final OrderCakeData orderCake;
+  final Function callback;
+  final bool isChangeable;
+  CakeCountWidget(this.isChangeable, {this.orderCake, this.callback});
 
-  Widget countWidget({bool isvisible}) {
-    cakeCount = cakeCount ?? 0;
-    isvisible = isvisible ?? false;
-    return Visibility(
-      visible: isvisible,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 15.h),
-            child: Text(
-              '수량',
-              style: TextStyle(
-                  fontSize: 15.sp,
-                  color: Colors.redAccent,
-                  fontWeight: FontWeight.bold),
+  @override
+  Widget build(BuildContext context) {
+    return isChangeable
+        ? Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 15.h),
+                  child: Text(
+                    '수량',
+                    style: TextStyle(
+                        fontSize: 15.sp,
+                        color: Colors.redAccent,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  // margin: EdgeInsets.only(top: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _minusButton(),
+                      _countTextField(),
+                      _plusButton()
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-          Container(
-            // margin: EdgeInsets.only(top: 15),
-            child: Row(
-              mainAxisAlignment: !isDetailPage
-                  ? MainAxisAlignment.end
-                  : MainAxisAlignment.center,
-              children: [_minusButton(), _countTextField(), _plusButton()],
-            ),
-          ),
-        ],
-      ),
-    );
+          )
+        : Container(
+            child: Text("${orderCake.cakeCount}개"),
+          );
   }
 
+  // Widget countWidget({bool isvisible}) {
+  //   cakeCount = cakeCount ?? 0;
+  //   isvisible = isvisible ?? false;
+  //   return Visibility(
+  //     visible: isvisible,
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         Container(
+  //           margin: EdgeInsets.only(top: 15.h),
+  //           child: Text(
+  //             '수량',
+  //             style: TextStyle(
+  //                 fontSize: 15.sp,
+  //                 color: Colors.redAccent,
+  //                 fontWeight: FontWeight.bold),
+  //           ),
+  //         ),
+  //         Container(
+  //           // margin: EdgeInsets.only(top: 15),
+  //           child: Row(
+  //             mainAxisAlignment: !isDetailPage
+  //                 ? MainAxisAlignment.end
+  //                 : MainAxisAlignment.center,
+  //             children: [_minusButton(), _countTextField(), _plusButton()],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   _minusButton() {
-    return !isDetailPage
-        ? Visibility(
-            visible: cakeCount > 1,
-            child: Container(
-                child: IconButton(
-              icon: Icon(Icons.horizontal_rule),
-              onPressed: () {
-                callback(--cakeCount);
-              },
-            )))
-        : Container();
+    int count = orderCake.cakeCount ?? 0;
+    return Visibility(
+        visible: orderCake.cakeCount > 1,
+        child: Container(
+            child: IconButton(
+          icon: Icon(Icons.horizontal_rule),
+          onPressed: () {
+            callback(--count);
+          },
+        )));
   }
 
   _countTextField() {
-    String _text =
-        !isDetailPage ? cakeCount.toString() : cakeCount.toString() + "개";
+    int count = orderCake.cakeCount;
     return Container(
         child: Text(
-      _text,
-      style: TextStyle(
-          fontSize: !isDetailPage ? 13.sp : 15.sp, fontWeight: FontWeight.bold),
+      count == 0 ? "수량" : count.toString(),
+      style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
     ));
   }
 
   _plusButton() {
-    return !isDetailPage
-        ? Container(
-            child: IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              callback(++cakeCount);
-            },
-          ))
-        : Container();
+    int count = orderCake.cakeCount;
+    return Container(
+        child: IconButton(
+      icon: Icon(Icons.add),
+      onPressed: () {
+        callback(++count);
+      },
+    ));
   }
 }

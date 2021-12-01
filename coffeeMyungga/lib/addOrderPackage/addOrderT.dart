@@ -1,6 +1,8 @@
 import 'package:cakeorder/StateManagement/Riverpod/defineProvider.dart';
 import 'package:cakeorder/addOrderPackage/Customdropdown/addCake.dart';
 import 'package:cakeorder/addOrderPackage/Customdropdown/customDropDown.dart';
+import 'package:cakeorder/addOrderPackage/cakeCount.dart';
+import 'package:cakeorder/addOrderPackage/orderAbstract.dart';
 import 'package:cakeorder/addOrderPackage/selectDate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // TextEditingController를 사용하기 위해 State를 관리해야함 그래서 StatefulWidget을 사용
-//
 class AddOrder extends StatefulWidget {
   AddOrder({Key key}) : super(key: key);
 
@@ -17,13 +18,26 @@ class AddOrder extends StatefulWidget {
   _AddOrderState createState() => _AddOrderState();
 }
 
-class _AddOrderState extends State<AddOrder> {
+//OrderPage with
+//Must set clickable
+class _AddOrderState extends State<AddOrder> with OrderPage{
   TextEditingController orderDateTextController;
   TextEditingController orderTimeTextController;
   TextEditingController pickUpDateTextController;
   TextEditingController pickUpTimeTextController;
   TextEditingController partTimerTextController;
   TextEditingController cakeCategoryTextController;
+
+  @override
+  setData() {
+
+  }
+  
+  @override
+  setClickable() {
+    isClickable = true;
+    context = context;
+  }
 
   //statefulWidget에서 Build되기 전 state를 하는 단계
   @override
@@ -40,18 +54,21 @@ class _AddOrderState extends State<AddOrder> {
     super.dispose();
   }
 
-  initTextEdit() {
-    var _todayDate =
-        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
-            .toString()
-            .split(' ')[0];
-    String _todayTime = DateFormat('kk:mm').format(DateTime.now());
-    orderDateTextController = TextEditingController(text: _todayDate);
-    orderTimeTextController = TextEditingController(text: _todayTime);
-    pickUpDateTextController = TextEditingController();
-    pickUpTimeTextController = TextEditingController();
-    partTimerTextController = TextEditingController();
-    cakeCategoryTextController = TextEditingController();
+  aboutCake(bool isClickable) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "케이크",
+            style: TextStyle(fontSize: 18),
+          ),
+          AddCake(),
+          CakeCountWidget(isClickable,orderCake: ,)
+        ],
+      ),
+    );
   }
 
   @override
@@ -62,22 +79,13 @@ class _AddOrderState extends State<AddOrder> {
           padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
           child: Column(
             children: [
-              setOrderDateWidget(true),
-              setPickUpDateWidget(true),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CustomDropDown(
-                    provider: cakePriceProvider,
-                    textEditingController: cakeCategoryTextController,
-                  ),
-                ],
-              ),
+              setOrderDateWidget(isClickable),
+              setPickUpDateWidget(isClickable),
+              aboutCake(isClickable),
               CustomDropDown(
                 provider: partTimerProvider,
                 textEditingController: partTimerTextController,
               ),
-              AddCake(),
             ],
           ),
         ),
@@ -85,93 +93,4 @@ class _AddOrderState extends State<AddOrder> {
     );
   }
 
-  setOrderDateWidget(
-    bool clickable,
-  ) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "주문 날짜",
-            style: TextStyle(fontSize: 18),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: CustomDate(
-                  context: context,
-                  decoIcon: Icon(Icons.calendar_today),
-                  isClickable: clickable,
-                  enablePastDate: false,
-                  textColor: Colors.black,
-                  textEditingController: orderDateTextController,
-                  name: "주문",
-                ),
-              ),
-              Expanded(
-                child: CustomTimePicker(
-                  context: context,
-                  decoIcon: Icon(Icons.alarm),
-                  isClickable: clickable,
-                  minutesInterval: 10,
-                  name: "주문",
-                  setinitialTimeNow: true,
-                  textEditingController: orderTimeTextController,
-                  textColor: Colors.black,
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  setPickUpDateWidget(
-    bool clickable,
-  ) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "픽업 날짜",
-            style: TextStyle(fontSize: 18),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: CustomDate(
-                  context: context,
-                  decoIcon: Icon(Icons.calendar_today),
-                  isClickable: clickable,
-                  enablePastDate: false,
-                  textColor: Colors.redAccent,
-                  textEditingController: pickUpDateTextController,
-                  name: "픽업",
-                ),
-              ),
-              Expanded(
-                child: CustomTimePicker(
-                  context: context,
-                  decoIcon: Icon(Icons.alarm),
-                  isClickable: clickable,
-                  minutesInterval: 30,
-                  name: "픽업",
-                  setinitialTimeNow: true,
-                  textEditingController: pickUpTimeTextController,
-                  textColor: Colors.redAccent,
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 }

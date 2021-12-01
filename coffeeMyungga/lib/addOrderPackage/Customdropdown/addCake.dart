@@ -5,7 +5,8 @@ import 'package:cakeorder/addOrderPackage/Customdropdown/customDropDown.dart';
 import 'package:flutter/material.dart';
 
 class AddCake extends StatefulWidget {
-  AddCake({Key key}) : super(key: key);
+  final bool clickable;
+  AddCake({Key key, this.clickable}) : super(key: key);
 
   @override
   _AddCakeState createState() => _AddCakeState();
