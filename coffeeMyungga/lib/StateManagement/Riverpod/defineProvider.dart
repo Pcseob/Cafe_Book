@@ -53,3 +53,8 @@ final cakePriceProvider =
 //RealtimeDatabase에 있는 partTimer 데이터를 가져오는 Provider.
 final partTimerProvider =
     ChangeNotifierProvider<PartTimerProvider>((ref) => PartTimerProvider());
+
+final cakePriceFutureProvider =
+    FutureProvider((ref) async => CakePriceProvider());
+
+final test = Provider((ref) async => CakePriceProvider());
