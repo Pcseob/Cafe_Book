@@ -20,21 +20,17 @@ class AddOrder extends StatefulWidget {
 
 //OrderPage with
 //Must set clickable
-class _AddOrderState extends State<AddOrder> with OrderPage{
-  TextEditingController orderDateTextController;
-  TextEditingController orderTimeTextController;
-  TextEditingController pickUpDateTextController;
-  TextEditingController pickUpTimeTextController;
-  TextEditingController partTimerTextController;
-  TextEditingController cakeCategoryTextController;
-
+class _AddOrderState extends State<AddOrder> with OrderPage {
   @override
   setData() {
-
+    //Remark PartTimer name set empty
+    remarkTextController = TextEditingController();
+    partTimerTextController = TextEditingController();
   }
-  
+
   @override
   setClickable() {
+    //Clickable
     isClickable = true;
     context = context;
   }
@@ -65,7 +61,9 @@ class _AddOrderState extends State<AddOrder> with OrderPage{
             style: TextStyle(fontSize: 18),
           ),
           AddCake(),
-          CakeCountWidget(isClickable,orderCake: ,)
+          CakeCountWidget(
+            isClickable,
+          )
         ],
       ),
     );
@@ -92,5 +90,4 @@ class _AddOrderState extends State<AddOrder> with OrderPage{
       ),
     );
   }
-
 }

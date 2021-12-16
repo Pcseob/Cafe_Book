@@ -14,9 +14,12 @@ abstract class OrderPage {
   TextEditingController pickUpTimeTextController;
   TextEditingController partTimerTextController;
   TextEditingController cakeCategoryTextController;
+  TextEditingController remarkTextController;
 
   //set Clickable and BuildContext
   setClickable();
+  //set data about cakeCategory, count, size, name and memo
+  setData();
 
   //initialization TextEdit controlller
   //using  Alter Order page or Detail Order page
