@@ -26,7 +26,7 @@ class TodayOrder extends ConsumerWidget with TodayListImplement {
   }
 
   @override
-  listViewFirstRow(CakeData cakeData) {
+  listViewFirstRow(OrderCakeData cakeData) {
     bool isCakePriceNull = cakeData.cakePrice == null;
     bool isCakeCountNull = cakeData.cakeCount == null;
     int _totalPrice = cakeData.cakePrice * cakeData.cakeCount;
