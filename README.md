@@ -22,13 +22,13 @@ So I made this application using framework flutter
 Main Function(주요기능
 -------------------
 
-*Cake order(케이크 예약)
-*Today cake order state (오늘자 케이크 예약 현황)
-*Today cake pickup state (오늘자 케이크 픽업 현황)
-*Monthly cake pickup and order state(월별 케이크 예약 및 픽업 현황)
-*Monthly cake sales status (월별 매출현황)
-*cake order information (예약자 정보)
-*cake alter (케이크 이름 및 가격 수정)
+* Cake order(케이크 예약)
+* Today cake order state (오늘자 케이크 예약 현황)
+* Today cake pickup state (오늘자 케이크 픽업 현황)
+* Monthly cake pickup and order state(월별 케이크 예약 및 픽업 현황)
+* Monthly cake sales status (월별 매출현황)
+* cake order information (예약자 정보)
+* cake alter (케이크 이름 및 가격 수정)
 
 Getting Started(시작하기)
 ---------------
