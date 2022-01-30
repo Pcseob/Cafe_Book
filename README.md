@@ -3,9 +3,9 @@
 
 Index 목차
 ---------
-*Overview(개요)
-*Main Function(주요기능)
-*Getting Started(시작하기)
+* Overview(개요)
+* Main Function(주요기능)
+* Getting Started(시작하기)
 
 
 Overview(개요)
