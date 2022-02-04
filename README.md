@@ -37,5 +37,5 @@ Getting Started(시작하기)
 
 Others(기타)
 -------------
-If you need Application made for provider, please send email to monocsp@naver.com
-Provider로 제작된 애플리케이션이 필요하신 분은 monocsp@naver.com으로 메일주시기 바랍니다.
+* If you need Application made for provider, please send email to monocsp@naver.com
+* Provider로 제작된 애플리케이션이 필요하신 분은 monocsp@naver.com으로 메일주시기 바랍니다.
