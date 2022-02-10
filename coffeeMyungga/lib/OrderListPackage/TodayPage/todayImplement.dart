@@ -26,7 +26,6 @@ abstract class TodayListImplement {
               verticalOffset: 50.0,
               child: FadeInAnimation(
                 child: Slidable(
-                  actionPane: SlidableDrawerActionPane(),
                   // secondaryActions: customSwipeIconWidget(index),
                   // dismissal: setSlidableDrawerActionPane(index),
                   child: InkWell(
