@@ -13,8 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 //TodayListImplement로 TodayOrder과 TodayPickup이 비슷한 UI구성되게 함.
 class TodayOrder extends ConsumerWidget with TodayListImplement {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    return watch(cakeOrderProvider).when(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.watch(cakeOrderProvider).when(
         loading: () => Center(
               child: CupertinoActivityIndicator(),
             ),
