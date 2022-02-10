@@ -22,8 +22,8 @@ class CakeSetting extends StatelessWidget {
 class CakeSetItemBody extends ConsumerWidget {
   final ScrollController scrollController = ScrollController();
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final cakepriceDataProvider = watch(cakePriceProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cakepriceDataProvider = ref.watch(cakePriceProvider);
     bool checkLoading = cakepriceDataProvider.isFetching;
     //Future의 State체크
     if (checkLoading) {
