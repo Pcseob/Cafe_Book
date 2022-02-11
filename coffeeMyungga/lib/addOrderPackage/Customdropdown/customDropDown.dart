@@ -24,9 +24,9 @@ class CustomDropDown extends ConsumerWidget {
   @override
   //watch는 Provider를 관찰하는 역할
   //watch된 Provider에서 notifyListener()가 작동하는지 확인한다.
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     //Provider를 watch
-    final watchProvider = watch(provider);
+    final watchProvider = ref.watch(provider);
 
     //Provider에서 isFetch가 true인 경우 데이터를 가져오는 중
     if (watchProvider.isFetching) {
