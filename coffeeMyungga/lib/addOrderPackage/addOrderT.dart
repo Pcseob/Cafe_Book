@@ -7,7 +7,6 @@ import 'package:cakeorder/addOrderPackage/selectDate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:riverpod_context/riverpod_context.dart';
 
 // TextEditingController를 사용하기 위해 State를 관리해야함 그래서 StatefulWidget을 사용
@@ -23,6 +22,7 @@ class AddOrder extends StatefulWidget {
 class _AddOrderState extends State<AddOrder> with OrderPage {
   @override
   setData() {
+    debugPrint("statement");
     //Remark PartTimer name set empty
     remarkTextController = TextEditingController();
     partTimerTextController = TextEditingController();
@@ -39,8 +39,11 @@ class _AddOrderState extends State<AddOrder> with OrderPage {
   @override
   void initState() {
     initTextEdit();
-    context.read(partTimerProvider).fetchData();
-    context.read(cakePriceProvider).fetchData();
+    // debugPrint("1");
+    // context.read(partTimerProvider).fetchData();
+    // debugPrint("2");
+    // context.read(cakePriceProvider).fetchData();
+    // debugPrint("3");
     super.initState();
   }
 

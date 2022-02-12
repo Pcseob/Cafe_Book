@@ -24,6 +24,7 @@ class PartTimerProvider with ChangeNotifier implements CustomProviderInterface {
 
   @override
   fetchData() async {
+    debugPrint("44");
     if (_isFetch) return;
 
     _isFetch = true;
