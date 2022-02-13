@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:riverpod_context/riverpod_context.dart';
 
 class CakeSetting extends StatelessWidget {
   @override
@@ -22,8 +23,8 @@ class CakeSetting extends StatelessWidget {
 class CakeSetItemBody extends ConsumerWidget {
   final ScrollController scrollController = ScrollController();
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final cakepriceDataProvider = watch(cakePriceProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cakepriceDataProvider = ref.watch(cakePriceProvider);
     bool checkLoading = cakepriceDataProvider.isFetching;
     //Future의 State체크
     if (checkLoading) {

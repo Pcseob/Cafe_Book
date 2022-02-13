@@ -125,7 +125,7 @@ class _ReportPageState extends State<ReportPage> {
           bottomTitles: SideTitles(
             showTitles: true,
             reservedSize: 22,
-            getTextStyles: (value) => TextStyle(
+            getTextStyles: (context, value) => TextStyle(
               color: Color(0xff72719b),
               // fontWeight: FontWeight.bold,
               fontSize: 7.sp,
@@ -138,7 +138,7 @@ class _ReportPageState extends State<ReportPage> {
           leftTitles: SideTitles(
             interval: bestEarning / 4,
             showTitles: true,
-            getTextStyles: (value) => TextStyle(
+            getTextStyles: (context, value) => TextStyle(
               color: Color(0xff75729e),
               fontWeight: FontWeight.bold,
               fontSize: 14.sp,

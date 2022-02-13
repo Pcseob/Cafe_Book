@@ -26,7 +26,6 @@ abstract class TodayListImplement {
               verticalOffset: 50.0,
               child: FadeInAnimation(
                 child: Slidable(
-                  actionPane: SlidableDrawerActionPane(),
                   // secondaryActions: customSwipeIconWidget(index),
                   // dismissal: setSlidableDrawerActionPane(index),
                   child: InkWell(
@@ -41,7 +40,7 @@ abstract class TodayListImplement {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             //가격과 케이크 예약수, 전체가격을 보여주는 라인
-                            listViewFirstRow(currentCakeData),
+                            // listViewFirstRow(currentCakeData),
                             //결제상태와 결제수단(현금 카드)
                             listViewSecondRow(currentCakeData),
                             //주문한 날짜와 픽업 날짜

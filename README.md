@@ -6,6 +6,7 @@ Index 목차
 * Overview(개요)
 * Main Function(주요기능)
 * Getting Started(시작하기)
+* Others(기타)
 
 
 Overview(개요)
@@ -30,3 +31,11 @@ Main Function(주요기능
 
 Getting Started(시작하기)
 ---------------
+
+
+현재 Provider에서 Riverpod으로 변경중입니다.
+
+Others(기타)
+-------------
+* If you need Application made for provider, please send email to monocsp@naver.com
+* Provider로 제작된 애플리케이션이 필요하신 분은 monocsp@naver.com으로 메일주시기 바랍니다.

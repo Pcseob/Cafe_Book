@@ -24,11 +24,11 @@ class CakePriceProvider with ChangeNotifier implements CustomProviderInterface {
     _dropDownList.clear();
     try {
       //Realtime Database에 있는 cakePrice에서 Key-Value형식의 데이터를 가지고 옴.
-      DataSnapshot dataSnapshot =
-          await FirebaseDatabase.instance.reference().child("cakePrice").once();
+      DatabaseEvent databaseEvent =
+          await FirebaseDatabase.instance.ref().child("cakePrice").once();
       //Iterable에서 Map으로 변경한다.
       Map<String, dynamic> cakePriceMap =
-          Map<String, dynamic>.from(dataSnapshot.value);
+          Map<String, dynamic>.from(databaseEvent.snapshot.value);
       //Cake이름을 기준으로 사이즈-가격(Key-Value)형식으로 데이터를 저장한다.
       cakePriceMap.forEach((cakeName, value) {
         _cakePriceDataList.add(new CakePriceData(
