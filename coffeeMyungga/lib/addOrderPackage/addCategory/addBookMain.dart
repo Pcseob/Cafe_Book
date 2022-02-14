@@ -14,19 +14,11 @@ class BookingCakeCategory extends StatefulWidget {
 }
 
 class _BookingCakeCategoryState extends State<BookingCakeCategory> {
-  TextEditingController bookName;
-  TextEditingController bookCount;
   Function updateCallback;
   bool isClickable;
 
-  initialBook({OrderData orderData}) {
-    bookName = TextEditingController(text: orderData.bookCategory);
-    bookCount = TextEditingController(text: orderData.count);
-  }
-
   @override
   void initState() {
-    initialBook(name: this.widget.bookName, count: this.bookCount);
     this.isClickable = widget.isClickable;
     super.initState();
   }
@@ -36,6 +28,11 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
     return Container(
       child: Row(
         children: [
+          //****구현할 부분 */
+          //clickable에 따라서 다르게 구현해야함
+          //Text Widget과 dropdownWidget
+          //Text Widget과 count부분
+          //**** */
           AddCake(clickable: isClickable, bookName: this.widget.bookName ?? ""),
           CakeCountWidget(
             isClickable,

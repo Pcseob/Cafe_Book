@@ -40,7 +40,7 @@ class CakeCountWidget extends StatelessWidget {
             ),
           )
         : Container(
-            child: Text("${orderCake.cakeCount}개"),
+            child: Text("${orderCake.count}개"),
           );
   }
 
@@ -77,9 +77,9 @@ class CakeCountWidget extends StatelessWidget {
   // }
 
   _minusButton() {
-    int count = orderCake.cakeCount ?? 0;
+    int count = orderCake.count ?? 0;
     return Visibility(
-        visible: orderCake.cakeCount > 1,
+        visible: orderCake.count > 1,
         child: Container(
             child: IconButton(
           icon: Icon(Icons.horizontal_rule),
@@ -90,7 +90,7 @@ class CakeCountWidget extends StatelessWidget {
   }
 
   _countTextField() {
-    int count = orderCake.cakeCount;
+    int count = orderCake.count;
     return Container(
         child: Text(
       count == 0 ? "수량" : count.toString(),
@@ -99,7 +99,7 @@ class CakeCountWidget extends StatelessWidget {
   }
 
   _plusButton() {
-    int count = orderCake.cakeCount;
+    int count = orderCake.count;
     return Container(
         child: IconButton(
       icon: Icon(Icons.add),
