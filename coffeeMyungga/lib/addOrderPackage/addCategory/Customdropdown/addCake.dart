@@ -1,13 +1,13 @@
 import 'package:cakeorder/StateManagement/DeclareData/cakePriceData.dart';
 import 'package:cakeorder/StateManagement/Riverpod/defineProvider.dart';
+import 'package:cakeorder/addOrderPackage/addCategory/Customdropdown/customDropDown.dart';
 import 'package:riverpod_context/riverpod_context.dart';
-
-import 'package:cakeorder/addOrderPackage/Customdropdown/customDropDown.dart';
 import 'package:flutter/material.dart';
 
 class AddCake extends StatefulWidget {
   final bool clickable;
-  AddCake({Key key, this.clickable}) : super(key: key);
+  final String bookName;
+  AddCake({Key key, this.clickable, this.bookName}) : super(key: key);
 
   @override
   _AddCakeState createState() => _AddCakeState();

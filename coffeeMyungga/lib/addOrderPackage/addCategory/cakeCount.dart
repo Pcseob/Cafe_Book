@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CakeCountWidget extends StatelessWidget {
-  final OrderCakeData orderCake;
+  final OrderData orderCake;
   final Function callback;
   final bool isChangeable;
   CakeCountWidget(this.isChangeable, {this.orderCake, this.callback});

@@ -1,7 +1,7 @@
 import 'package:cakeorder/StateManagement/Riverpod/defineProvider.dart';
 import 'package:cakeorder/addOrderPackage/Customdropdown/addCake.dart';
 import 'package:cakeorder/addOrderPackage/Customdropdown/customDropDown.dart';
-import 'package:cakeorder/addOrderPackage/cakeCount.dart';
+import 'package:cakeorder/addOrderPackage/addCategory/cakeCount.dart';
 import 'package:cakeorder/addOrderPackage/orderAbstract.dart';
 import 'package:cakeorder/addOrderPackage/selectDate.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,6 +26,7 @@ class _AddOrderState extends State<AddOrder> with OrderPage {
     //Remark PartTimer name set empty
     remarkTextController = TextEditingController();
     partTimerTextController = TextEditingController();
+    cakeOrderTextController = TextEditingController();
   }
 
   @override
@@ -66,6 +67,7 @@ class _AddOrderState extends State<AddOrder> with OrderPage {
           AddCake(),
           CakeCountWidget(
             isClickable,
+            callback: cakeTextUpdateCallback,
           )
         ],
       ),
