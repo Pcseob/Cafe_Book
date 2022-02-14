@@ -5,3 +5,6 @@ coffeeMyungga/android/app/새 폴더/google-services_hosan.json
 coffeeMyungga/android/app/새 폴더/google-services_pcs.json
 coffeeMyungga/ios/Flutter/Release.xcconfig
 coffeeMyungga/ios/Flutter/Debug.xcconfig
+*.xcconfig
+coffeeMyungga/ios/Flutter/Release.xcconfig
+coffeeMyungga/ios/Flutter/Debug.xcconfig

@@ -15,6 +15,7 @@ abstract class OrderPage {
   TextEditingController partTimerTextController;
   TextEditingController cakeCategoryTextController;
   TextEditingController remarkTextController;
+  TextEditingController cakeOrderTextController;
 
   //set Clickable and BuildContext
   setClickable();

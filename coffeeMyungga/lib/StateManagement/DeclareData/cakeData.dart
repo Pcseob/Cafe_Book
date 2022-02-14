@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-class OrderCakeData {
-  final int cakeCount;
-  final int cakePrice;
-  final String cakeSize;
-  final String cakeCategory;
-  OrderCakeData(
-      {this.cakeCategory, this.cakeCount, this.cakePrice, this.cakeSize});
+class OrderData {
+  final int count;
+  final int price;
+  final String size;
+  final String bookCategory;
+  OrderData({this.bookCategory, this.count, this.price, this.size});
 }
 
 class CakeData {
@@ -19,7 +18,7 @@ class CakeData {
   // final String cakeSize;
   // final int cakePrice;
   // final int cakeCount;
-  final List<OrderCakeData> orderCakeData;
+  final List<OrderData> orderCakeData;
 
   final String customerName;
   final String customerPhone;
@@ -54,13 +53,13 @@ class CakeData {
     this.orderCakeData,
   });
 
-  convertCakeData(List<OrderCakeData> data) {
+  convertCakeData(List<OrderData> data) {
     List<Map> cakeData = [];
-    data.forEach((OrderCakeData element) => cakeData.add({
-          "cakeCategory": element.cakeCategory,
-          "cakeSize": element.cakeSize,
-          "cakePrice": element.cakePrice,
-          "cakeCount": element.cakeCount
+    data.forEach((OrderData element) => cakeData.add({
+          "cakeCategory": element.bookCategory,
+          "cakeSize": element.size,
+          "cakePrice": element.price,
+          "cakeCount": element.count
         }));
     return cakeData;
   }
@@ -149,13 +148,12 @@ class CakeData {
 
   factory CakeData.fromFireStore(DocumentSnapshot snapshot) {
     Map<dynamic, dynamic> _cakeData = snapshot.data();
-    List<OrderCakeData> ordercakeData = [];
-    _cakeData["orderCakeData"].foreach((element) => ordercakeData.add(
-        OrderCakeData(
-            cakeCategory: element["cakeCategory"],
-            cakeCount: element["cakeCount"],
-            cakePrice: element["cakePrice"],
-            cakeSize: element["cakeSize"])));
+    List<OrderData> ordercakeData = [];
+    _cakeData["orderCakeData"].foreach((element) => ordercakeData.add(OrderData(
+        bookCategory: element["cakeCategory"],
+        count: element["cakeCount"],
+        price: element["cakePrice"],
+        size: element["cakeSize"])));
     return CakeData(
         orderCakeData: ordercakeData,
         // cakeCategory: _cakeData["cakeCategory"] ?? '',

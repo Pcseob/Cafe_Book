@@ -26,10 +26,10 @@ class TodayOrder extends ConsumerWidget with TodayListImplement {
   }
 
   @override
-  listViewFirstRow(OrderCakeData cakeData) {
-    bool isCakePriceNull = cakeData.cakePrice == null;
-    bool isCakeCountNull = cakeData.cakeCount == null;
-    int _totalPrice = cakeData.cakePrice * cakeData.cakeCount;
+  listViewFirstRow(OrderData cakeData) {
+    bool isCakePriceNull = cakeData.price == null;
+    bool isCakeCountNull = cakeData.count == null;
+    int _totalPrice = cakeData.price * cakeData.count;
     List<String> _addColon = _totalPrice.toString().split('');
     int numberLength = _addColon.length;
     int dotCount = (numberLength - 1) ~/ 3;
@@ -47,10 +47,10 @@ class TodayOrder extends ConsumerWidget with TodayListImplement {
         ),
         Text(
           !isCakePriceNull
-              ? cakeData.cakeCategory +
-                  cakeData.cakeSize +
+              ? cakeData.bookCategory +
+                  cakeData.size +
                   " X" +
-                  cakeData.cakeCount.toString()
+                  cakeData.count.toString()
               : "EMPTY",
           style: TextStyle(
               color: Colors.redAccent,

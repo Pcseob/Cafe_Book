@@ -64,7 +64,7 @@ abstract class TodayListImplement {
   }
 
   //첫번째 라인
-  listViewFirstRow(OrderCakeData cakeData);
+  listViewFirstRow(OrderData cakeData);
   //두번째 라인
   listViewSecondRow(CakeData cakeData);
   //세번째 라인
