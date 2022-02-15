@@ -1,6 +1,7 @@
 import 'package:cakeorder/StateManagement/Riverpod/defineProvider.dart';
 import 'package:cakeorder/addOrderPackage/addCategory/Customdropdown/addCake.dart';
 import 'package:cakeorder/addOrderPackage/addCategory/Customdropdown/customDropDown.dart';
+import 'package:cakeorder/addOrderPackage/addCategory/addBookMain.dart';
 import 'package:cakeorder/addOrderPackage/addCategory/cakeCount.dart';
 import 'package:cakeorder/addOrderPackage/orderAbstract.dart';
 import 'package:cakeorder/addOrderPackage/selectDate.dart';
@@ -64,6 +65,9 @@ class _AddOrderState extends State<AddOrder> with OrderPage {
             "케이크",
             style: TextStyle(fontSize: 18),
           ),
+          BookingCakeCategory(
+            isClickable: true,
+          )
           //*******추가해야하는 부분 */
           //addBookMain을 추가해야할 부분
         ],
