@@ -16,9 +16,11 @@ class BookingCakeCategory extends StatefulWidget {
 class _BookingCakeCategoryState extends State<BookingCakeCategory> {
   Function updateCallback;
   bool isClickable;
+  OrderData currentOrder;
 
   @override
   void initState() {
+    currentOrder = this.widget.orderCake;
     this.isClickable = widget.isClickable;
     super.initState();
   }
@@ -33,7 +35,9 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
           //Text Widget과 dropdownWidget
           //Text Widget과 count부분
           //**** */
-          AddCake(clickable: isClickable, bookName: this.widget.bookName ?? ""),
+          AddCake(
+              clickable: isClickable,
+              bookName: currentOrder.bookCategory ?? ""),
           CakeCountWidget(
             isClickable,
           )
