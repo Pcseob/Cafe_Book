@@ -21,7 +21,7 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
   @override
   void initState() {
     currentOrder = this.widget.orderCake;
-    this.isClickable = widget.isClickable;
+    this.isClickable = widget.isClickable ?? true;
     super.initState();
   }
 
