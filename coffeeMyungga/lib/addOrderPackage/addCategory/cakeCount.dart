@@ -2,11 +2,31 @@ import 'package:cakeorder/StateManagement/DeclareData/cakeData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CakeCountWidget extends StatelessWidget {
+//CakeCount를 설정해주는 Widget
+//isChangeable로 수정가능하거나 케이크를 생성하는 단계에서 카운트를 설정할 수 있고,
+//수정하지 못하는 경우에는 보여주기만 하는 Widget이다
+class CakeCountWidget extends StatefulWidget {
   final OrderData orderCake;
   final Function callback;
   final bool isChangeable;
   CakeCountWidget(this.isChangeable, {this.orderCake, this.callback});
+
+  @override
+  State<CakeCountWidget> createState() => _CakeCountWidget();
+}
+
+class _CakeCountWidget extends State<CakeCountWidget> {
+  OrderData orderCake;
+  Function callback;
+  bool isChangeable;
+
+  @override
+  void initState() {
+    orderCake = this.widget.orderCake;
+    callback = this.widget.callback;
+    isChangeable = this.widget.isChangeable;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
