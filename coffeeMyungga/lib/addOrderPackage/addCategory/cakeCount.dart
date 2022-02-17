@@ -19,6 +19,7 @@ class _CakeCountWidget extends State<CakeCountWidget> {
   OrderData orderCake;
   Function callback;
   bool isChangeable;
+  int currentOrderCount = 1;
 
   @override
   void initState() {
@@ -97,34 +98,35 @@ class _CakeCountWidget extends State<CakeCountWidget> {
   // }
 
   _minusButton() {
-    int count = orderCake.count ?? 0;
     return Visibility(
         visible: orderCake.count > 1,
         child: Container(
             child: IconButton(
           icon: Icon(Icons.horizontal_rule),
           onPressed: () {
-            callback(--count);
+            setState(() {
+              callback(--currentOrderCount);
+            });
           },
         )));
   }
 
   _countTextField() {
-    int count = orderCake.count;
     return Container(
         child: Text(
-      count == 0 ? "수량" : count.toString(),
+      currentOrderCount == 0 ? "수량" : currentOrderCount.toString(),
       style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
     ));
   }
 
   _plusButton() {
-    int count = orderCake.count;
     return Container(
         child: IconButton(
       icon: Icon(Icons.add),
       onPressed: () {
-        callback(++count);
+        setState(() {
+          callback(++currentOrderCount);
+        });
       },
     ));
   }
