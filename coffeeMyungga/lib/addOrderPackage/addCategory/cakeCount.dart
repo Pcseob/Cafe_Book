@@ -15,6 +15,9 @@ class CakeCountWidget extends StatefulWidget {
   State<CakeCountWidget> createState() => _CakeCountWidget();
 }
 
+//Callback 함수로 orderData에 있는 값을 update해줄 수 있고,
+//함수내에 있는 currentOrderCount를 변화시켜서
+//setState reload를 통하여 위젯을 업데이트한다.
 class _CakeCountWidget extends State<CakeCountWidget> {
   OrderData orderCake;
   Function callback;
@@ -105,7 +108,8 @@ class _CakeCountWidget extends State<CakeCountWidget> {
           icon: Icon(Icons.horizontal_rule),
           onPressed: () {
             setState(() {
-              callback(--currentOrderCount);
+              currentOrderCount -= 1;
+              callback(currentOrderCount);
             });
           },
         )));
@@ -125,7 +129,8 @@ class _CakeCountWidget extends State<CakeCountWidget> {
       icon: Icon(Icons.add),
       onPressed: () {
         setState(() {
-          callback(++currentOrderCount);
+          currentOrderCount += 1;
+          callback(currentOrderCount);
         });
       },
     ));
