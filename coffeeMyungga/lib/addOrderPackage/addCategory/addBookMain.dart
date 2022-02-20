@@ -38,7 +38,7 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
           for (OrderData data in currentOrder) ...[
             AddCake(
               clickable: isClickable,
-              bookName: data,
+              orderData: data,
             ),
             CakeCountWidget(isClickable)
           ],
@@ -47,12 +47,6 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
           //Text Widget과 dropdownWidget
           //Text Widget과 count부분
           //**** */
-          AddCake(
-              clickable: isClickable,
-              bookName: currentOrder.bookCategory ?? ""),
-          CakeCountWidget(
-            isClickable,
-          )
         ],
       ),
     );

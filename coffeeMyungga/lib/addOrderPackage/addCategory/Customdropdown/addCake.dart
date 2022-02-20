@@ -1,3 +1,4 @@
+import 'package:cakeorder/StateManagement/DeclareData/cakeData.dart';
 import 'package:cakeorder/StateManagement/DeclareData/cakePriceData.dart';
 import 'package:cakeorder/StateManagement/Riverpod/defineProvider.dart';
 import 'package:cakeorder/addOrderPackage/addCategory/Customdropdown/customDropDown.dart';
@@ -6,8 +7,8 @@ import 'package:flutter/material.dart';
 
 class AddCake extends StatefulWidget {
   final bool clickable;
-  final String bookName;
-  AddCake({Key key, this.clickable, this.bookName}) : super(key: key);
+  final OrderData orderData;
+  AddCake({Key key, this.clickable, this.orderData}) : super(key: key);
 
   @override
   _AddCakeState createState() => _AddCakeState();
