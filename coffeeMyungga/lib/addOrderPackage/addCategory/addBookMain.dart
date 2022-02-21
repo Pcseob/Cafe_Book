@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cakeorder/StateManagement/DeclareData/cakeData.dart';
 import 'package:cakeorder/addOrderPackage/addCategory/Customdropdown/addCake.dart';
 import 'package:cakeorder/addOrderPackage/addCategory/cakeCount.dart';
@@ -22,6 +24,8 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
   Function updateCallback;
   bool isClickable;
   List<OrderData> currentOrder;
+  StreamController<List<OrderData>> _orderListStreamController =
+      StreamController();
 
   @override
   void initState() {
@@ -32,23 +36,38 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          for (OrderData data in currentOrder) ...[
-            AddCake(
-              clickable: isClickable,
-              orderData: data,
+    return StreamBuilder<List<OrderData>>(
+        stream: _orderListStreamController.stream,
+        initialData: currentOrder,
+        builder: (context, snapshot) {
+          return Container(
+            child: Row(
+              children: [
+                for (OrderData data in currentOrder) ...[
+                  AddCake(
+                    clickable: isClickable,
+                    orderData: data,
+                  ),
+                  CakeCountWidget(isClickable)
+                ],
+                Center(
+                  child: Icon(Icons.add),
+                )
+                //****구현할 부분 */
+                //clickable에 따라서 다르게 구현해야함
+                //Text Widget과 dropdownWidget
+                //Text Widget과 count부분
+                //**** */
+              ],
             ),
-            CakeCountWidget(isClickable)
-          ],
-          //****구현할 부분 */
-          //clickable에 따라서 다르게 구현해야함
-          //Text Widget과 dropdownWidget
-          //Text Widget과 count부분
-          //**** */
-        ],
-      ),
-    );
+          );
+        });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _orderListStreamController.close();
+    super.dispose();
   }
 }
