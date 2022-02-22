@@ -23,50 +23,71 @@ class BookingCakeCategory extends StatefulWidget {
 class _BookingCakeCategoryState extends State<BookingCakeCategory> {
   Function updateCallback;
   bool isClickable;
-  List<OrderData> currentOrder;
+  List<OrderData> currentOrder = [];
   StreamController<List<OrderData>> _orderListStreamController =
       StreamController();
 
   @override
   void initState() {
-    currentOrder = this.widget.orderList;
+    currentOrder = this.widget.orderList ?? [];
     this.isClickable = widget.isClickable ?? true;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<OrderData>>(
-        stream: _orderListStreamController.stream,
-        initialData: currentOrder,
-        builder: (context, snapshot) {
-          return Container(
-            child: Row(
-              children: [
-                for (OrderData data in currentOrder) ...[
-                  AddCake(
-                    clickable: isClickable,
-                    orderData: data,
-                  ),
-                  CakeCountWidget(isClickable)
-                ],
-                Center(
-                  child: Icon(Icons.add),
-                )
-                //****구현할 부분 */
-                //clickable에 따라서 다르게 구현해야함
-                //Text Widget과 dropdownWidget
-                //Text Widget과 count부분
-                //**** */
-              ],
-            ),
-          );
-        });
+    return Column(
+      children: [
+        StreamBuilder<List<OrderData>>(
+            stream: _orderListStreamController.stream,
+            initialData: currentOrder,
+            builder: (context, snapshot) {
+              return Container(
+                child: Column(
+                  children: [
+                    for (int index = 0;
+                        index < currentOrder.length;
+                        index++) ...[
+                      Row(
+                        children: [
+                          AddCake(
+                            clickable: isClickable,
+                            orderData: currentOrder[index],
+                          ),
+                          CakeCountWidget(isClickable),
+                          //Order를 삭제부분
+                          Center(
+                            child: GestureDetector(
+                                child: Icon(Icons.remove),
+                                onTap: () => _orderListStreamController.sink
+                                    .add(currentOrder..removeAt(index))),
+                          )
+                        ],
+                      )
+                    ],
+
+                    //****구현할 부분 */
+                    //clickable에 따라서 다르게 구현해야함
+                    //Text Widget과 dropdownWidget
+                    //Text Widget과 count부분
+                    //**** */
+                  ],
+                ),
+              );
+            }),
+        //Order를 추가하는 부분.
+        Center(
+          child: GestureDetector(
+              child: Icon(Icons.add),
+              onTap: () => _orderListStreamController.sink
+                  .add(currentOrder..add(new OrderData()))),
+        )
+      ],
+    );
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _orderListStreamController.close();
     super.dispose();
   }
