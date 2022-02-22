@@ -9,7 +9,9 @@ class CakeCountWidget extends StatefulWidget {
   final OrderData orderCake;
   final Function callback;
   final bool isChangeable;
-  CakeCountWidget(this.isChangeable, {this.orderCake, this.callback});
+  final int orderIndex;
+  CakeCountWidget(this.isChangeable,
+      {this.orderCake, this.callback, this.orderIndex});
 
   @override
   State<CakeCountWidget> createState() => _CakeCountWidget();
@@ -18,17 +20,21 @@ class CakeCountWidget extends StatefulWidget {
 //Callback 함수로 orderData에 있는 값을 update해줄 수 있고,
 //함수내에 있는 currentOrderCount를 변화시켜서
 //setState reload를 통하여 위젯을 업데이트한다.
+//callback : orderCountChange(int index, int changeCount)
 class _CakeCountWidget extends State<CakeCountWidget> {
   OrderData orderCake;
-  Function callback;
+  Function(int, int) callback;
   bool isChangeable;
-  int currentOrderCount = 1;
+  int currentOrderCount;
+  int orderIndex;
 
   @override
   void initState() {
     orderCake = this.widget.orderCake;
     callback = this.widget.callback;
     isChangeable = this.widget.isChangeable;
+    orderIndex = this.widget.orderIndex;
+    currentOrderCount = orderCake.count ?? 1;
     super.initState();
   }
 
@@ -39,16 +45,16 @@ class _CakeCountWidget extends State<CakeCountWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  margin: EdgeInsets.only(top: 15.h),
-                  child: Text(
-                    '수량',
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        color: Colors.redAccent,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.only(top: 15.h),
+                //   child: Text(
+                //     '수량',
+                //     style: TextStyle(
+                //         fontSize: 15.sp,
+                //         color: Colors.redAccent,
+                //         fontWeight: FontWeight.bold),
+                //   ),
+                // ),
                 Container(
                   // margin: EdgeInsets.only(top: 15),
                   child: Row(
@@ -64,7 +70,7 @@ class _CakeCountWidget extends State<CakeCountWidget> {
             ),
           )
         : Container(
-            child: Text("${orderCake.count}개"),
+            child: Text("$currentOrderCount개"),
           );
   }
 
@@ -102,14 +108,14 @@ class _CakeCountWidget extends State<CakeCountWidget> {
 
   _minusButton() {
     return Visibility(
-        visible: orderCake.count > 1,
+        visible: currentOrderCount > 1,
         child: Container(
             child: IconButton(
           icon: Icon(Icons.horizontal_rule),
           onPressed: () {
             setState(() {
               currentOrderCount -= 1;
-              callback(currentOrderCount);
+              callback(orderIndex, orderCake.count);
             });
           },
         )));
@@ -130,7 +136,7 @@ class _CakeCountWidget extends State<CakeCountWidget> {
       onPressed: () {
         setState(() {
           currentOrderCount += 1;
-          callback(currentOrderCount);
+          callback(orderIndex, orderCake.count);
         });
       },
     ));

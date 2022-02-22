@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class OrderData {
-  final int count;
-  final int price;
-  final String size;
-  final String bookCategory;
+  int count;
+  int price;
+  String size;
+  String bookCategory;
   OrderData({this.bookCategory, this.count, this.price, this.size});
 }
 

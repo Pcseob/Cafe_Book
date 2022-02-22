@@ -34,6 +34,11 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
     super.initState();
   }
 
+  orderCountChange(int index, int changeCount) {
+    currentOrder[index].count = changeCount;
+    _orderListStreamController.sink.add(currentOrder);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,7 +59,10 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
                             clickable: isClickable,
                             orderData: currentOrder[index],
                           ),
-                          CakeCountWidget(isClickable),
+                          CakeCountWidget(isClickable,
+                              callback: orderCountChange,
+                              orderCake: currentOrder[index],
+                              orderIndex: index),
                           //Order를 삭제부분
                           Center(
                             child: GestureDetector(

@@ -31,8 +31,9 @@ class _AddCakeState extends State<AddCake> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Expanded(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CustomDropDown(
             callback: callbackCake,
