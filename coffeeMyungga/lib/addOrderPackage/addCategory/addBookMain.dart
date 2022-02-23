@@ -36,6 +36,9 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
 
   orderCountChange(int index, int changeCount) {
     currentOrder[index].count = changeCount;
+    for (var i in currentOrder) {
+      print(i.count);
+    }
     _orderListStreamController.sink.add(currentOrder);
   }
 
@@ -66,9 +69,17 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
                           //Order를 삭제부분
                           Center(
                             child: GestureDetector(
-                                child: Icon(Icons.remove),
-                                onTap: () => _orderListStreamController.sink
-                                    .add(currentOrder..removeAt(index))),
+                              child: Icon(Icons.remove),
+                              onTap: () {
+                                // _orderListStreamController.sink
+                                //     .add(currentOrder);
+                                // for (var i in currentOrder) {
+                                //   print(i.count);
+                                // }
+                              },
+                              // onTap: () => _orderListStreamController.sink
+                              //     .add(currentOrder..removeAt(index))
+                            ),
                           )
                         ],
                       )

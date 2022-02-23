@@ -115,7 +115,7 @@ class _CakeCountWidget extends State<CakeCountWidget> {
           onPressed: () {
             setState(() {
               currentOrderCount -= 1;
-              callback(orderIndex, orderCake.count);
+              callback(orderIndex, currentOrderCount);
             });
           },
         )));
@@ -136,7 +136,8 @@ class _CakeCountWidget extends State<CakeCountWidget> {
       onPressed: () {
         setState(() {
           currentOrderCount += 1;
-          callback(orderIndex, orderCake.count);
+          print(currentOrderCount);
+          callback(orderIndex, currentOrderCount);
         });
       },
     ));
