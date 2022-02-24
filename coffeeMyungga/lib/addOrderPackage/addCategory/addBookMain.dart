@@ -71,11 +71,11 @@ class _BookingCakeCategoryState extends State<BookingCakeCategory> {
                             child: GestureDetector(
                               child: Icon(Icons.remove),
                               onTap: () {
-                                // _orderListStreamController.sink
-                                //     .add(currentOrder);
-                                // for (var i in currentOrder) {
-                                //   print(i.count);
-                                // }
+                                currentOrder._orderListStreamController.sink
+                                    .add(currentOrder);
+                                for (var i in currentOrder) {
+                                  print(i.count);
+                                }
                               },
                               // onTap: () => _orderListStreamController.sink
                               //     .add(currentOrder..removeAt(index))
