@@ -53,3 +53,6 @@ final cakePriceProvider =
 //RealtimeDatabase에 있는 partTimer 데이터를 가져오는 Provider.
 final partTimerProvider =
     ChangeNotifierProvider<PartTimerProvider>((ref) => PartTimerProvider());
+
+//로그인이 되어있는지 확인하는 provider.
+final loginProvider = StateProvider<bool>((ref) => false);
