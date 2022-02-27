@@ -1,5 +1,6 @@
 import 'package:cakeorder/StateManagement/DeclareData/cakeData.dart';
 import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/cakePriceProvider.dart';
+import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/checkLoginProvider.dart';
 import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/partTimerNotifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,4 +56,4 @@ final partTimerProvider =
     ChangeNotifierProvider<PartTimerProvider>((ref) => PartTimerProvider());
 
 //로그인이 되어있는지 확인하는 provider.
-final loginProvider = StateProvider<bool>((ref) => false);
+final loginProvider = StateNotifierProvider((ref) => LoginProvider());

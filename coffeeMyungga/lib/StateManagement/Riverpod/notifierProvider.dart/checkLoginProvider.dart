@@ -1,26 +1,19 @@
 import 'package:cakeorder/StateManagement/Riverpod/providerImplement.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginProvider extends StateNotifier<bool>
-    implements CustomProviderInterface {
+class LoginProvider extends StateNotifier<bool> {
   LoginProvider() : super(false);
 
   bool fetching = false;
+  bool loginState = false;
 
-  @override
-  get dropDownData => throw UnimplementedError();
-
-  @override
   fetchData() {
+    state = false;
     //Login check
     //state =.....
   }
 
-  @override
-  // TODO: implement getData
-  get getData => throw UnimplementedError();
+  get getData => loginState;
 
-  @override
-  // TODO: implement isFetching
   get isFetching => fetching;
 }

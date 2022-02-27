@@ -1,23 +1,25 @@
 import 'package:cakeorder/aboutLogin/Animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: double.infinity,
         decoration: BoxDecoration(
             gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-          Colors.orange[900],
-          Colors.orange[800],
-          Colors.orange[400]
+          Colors.blueGrey[900],
+          Colors.blueGrey[800],
+          Colors.blueGrey[400]
         ])),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-              height: 80,
+              height: 60.h,
             ),
             Padding(
               padding: EdgeInsets.all(20),
@@ -36,7 +38,7 @@ class LoginPage extends StatelessWidget {
                   FadeAnimation(
                       1.3,
                       Text(
-                        "Welcome Back",
+                        "카페 통합 예약시스템",
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       )),
                 ],
@@ -51,12 +53,13 @@ class LoginPage extends StatelessWidget {
                         topLeft: Radius.circular(60),
                         topRight: Radius.circular(60))),
                 child: SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
                   child: Padding(
                     padding: EdgeInsets.all(30),
                     child: Column(
                       children: <Widget>[
                         SizedBox(
-                          height: 60,
+                          height: 40.h,
                         ),
                         FadeAnimation(
                             1.4,
@@ -80,7 +83,7 @@ class LoginPage extends StatelessWidget {
                                                 color: Colors.grey[200]))),
                                     child: TextField(
                                       decoration: InputDecoration(
-                                          hintText: "Email or Phone number",
+                                          hintText: "아이디",
                                           hintStyle:
                                               TextStyle(color: Colors.grey),
                                           border: InputBorder.none),
@@ -94,7 +97,7 @@ class LoginPage extends StatelessWidget {
                                                 color: Colors.grey[200]))),
                                     child: TextField(
                                       decoration: InputDecoration(
-                                          hintText: "Password",
+                                          hintText: "패스워드",
                                           hintStyle:
                                               TextStyle(color: Colors.grey),
                                           border: InputBorder.none),
@@ -104,16 +107,16 @@ class LoginPage extends StatelessWidget {
                               ),
                             )),
                         SizedBox(
-                          height: 40,
+                          height: 30.h,
                         ),
                         FadeAnimation(
                             1.5,
                             Text(
-                              "Forgot Password?",
+                              "아이디/비밀번호 찾기",
                               style: TextStyle(color: Colors.grey),
                             )),
                         SizedBox(
-                          height: 40,
+                          height: 30.h,
                         ),
                         FadeAnimation(
                             1.6,
@@ -133,56 +136,32 @@ class LoginPage extends StatelessWidget {
                               ),
                             )),
                         SizedBox(
-                          height: 50,
+                          height: 50.h,
                         ),
-                        FadeAnimation(
-                            1.7,
-                            Text(
-                              "Continue with social media",
-                              style: TextStyle(color: Colors.grey),
-                            )),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Row(
+                        // FadeAnimation(
+                        //     1.7,
+                        //     Text(
+                        //       "Continue with social media",
+                        //       style: TextStyle(color: Colors.grey),
+                        //     )),
+
+                        Column(
                           children: <Widget>[
-                            Expanded(
+                            Container(
                               child: FadeAnimation(
-                                  1.8,
-                                  Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: Colors.blue),
-                                    child: Center(
-                                      child: Text(
-                                        "Facebook",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  )),
+                                1.8,
+                                SignInButton(
+                                  Buttons.Google,
+                                  onPressed: () {},
+                                ),
+                              ),
                             ),
-                            SizedBox(
-                              width: 30,
-                            ),
-                            Expanded(
+                            Container(
                               child: FadeAnimation(
                                   1.9,
-                                  Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: Colors.black),
-                                    child: Center(
-                                      child: Text(
-                                        "Github",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
+                                  SignInButton(
+                                    Buttons.Google,
+                                    onPressed: () {},
                                   )),
                             )
                           ],

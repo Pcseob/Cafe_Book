@@ -60,6 +60,15 @@ dependencies:
   riverpod_context: ^0.1.1
   #loginAnimation
   simple_animations: ^1.3.3
+  #signin button
+  flutter_signin_button: ^2.0.0
+  #kakao oauth
+  kakao_flutter_sdk: ^0.9.0
+  dio:
+  json_annotation:
+  package_info:
+  platform:
+
   
 dev_dependencies:
   flutter_test:

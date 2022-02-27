@@ -1,4 +1,5 @@
 import 'package:cakeorder/StateManagement/Riverpod/defineProvider.dart';
+import 'package:cakeorder/aboutLogin/loginMain.dart';
 import 'package:cakeorder/routeGenerator.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,7 @@ class CakeOrderApp extends StatelessWidget {
               initialRoute: '/',
               onGenerateRoute: RouteGenerator.generateRoute,
               home: SafeArea(
-                child: MainBody(),
+                child: CheckLoginPage(),
               ),
             ));
   }
@@ -38,10 +39,12 @@ class CakeOrderApp extends StatelessWidget {
 class CheckLoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //로그인 시도.
     final checkLog = ref.watch(loginProvider);
-    context.read(loginProvider);
-    return checkLog? 
+    bool checkLogin = checkLog;
 
+    //로그인이 되어있다면 바로 Main으로 넘어가고, 아니면 LoginPage로 변경된다.
+    return checkLogin ? MainBody() : LoginPage();
   }
 }
 
