@@ -4,6 +4,7 @@ import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/checkLo
 import 'package:cakeorder/StateManagement/Riverpod/notifierProvider.dart/partTimerNotifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:io' show Platform;
 
 // final cakeOrderProvider = StreamProvider<List<CakeData>>((ref) {
 //   final todayCakeData = ref.watch(StreamProvider(
@@ -57,3 +58,8 @@ final partTimerProvider =
 
 //로그인이 되어있는지 확인하는 provider.
 final loginProvider = StateNotifierProvider((ref) => LoginProvider());
+
+//Singleton Design
+// class CurrentOSCheck {
+//   static get instance => {'IOS': Platform.isIOS, 'Android': Platform.isAndroid};
+// }

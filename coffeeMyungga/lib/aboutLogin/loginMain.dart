@@ -2,6 +2,7 @@ import 'package:cakeorder/aboutLogin/Animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:io' show Platform;
 
 class LoginPage extends StatelessWidget {
   @override
@@ -138,24 +139,22 @@ class LoginPage extends StatelessWidget {
                         SizedBox(
                           height: 50.h,
                         ),
-                        // FadeAnimation(
-                        //     1.7,
-                        //     Text(
-                        //       "Continue with social media",
-                        //       style: TextStyle(color: Colors.grey),
-                        //     )),
-
                         Column(
                           children: <Widget>[
-                            Container(
-                              child: FadeAnimation(
-                                1.8,
-                                SignInButton(
-                                  Buttons.Google,
-                                  onPressed: () {},
-                                ),
-                              ),
-                            ),
+                            //만약 안드로이드 혹은 ios라면 버튼이 보여진다.
+                            Platform.isAndroid || Platform.isIOS
+                                ? Container(
+                                    child: FadeAnimation(
+                                      1.8,
+                                      SignInButton(
+                                        Platform.isAndroid
+                                            ? Buttons.Google
+                                            : Buttons.Apple,
+                                        onPressed: () {},
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
                             Container(
                               child: FadeAnimation(
                                   1.9,

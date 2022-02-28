@@ -9,12 +9,17 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk/all.dart';
 import 'package:riverpod_context/riverpod_context.dart';
 
 import 'Alter/setCakePrice/cakeSetMain.dart';
 import 'OrderListPackage/todayPageMain.dart';
 
 void main() async {
+  //For kakao oauth
+  KakaoContext.clientId = "a02190e545741ae61daa0d059ddb9529";
+  KakaoContext.javascriptClientId = "fdf1cf30bcfccd9841e73559d6c33c93";
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().timeout(Duration(seconds: 3));
   //회전 금지.
