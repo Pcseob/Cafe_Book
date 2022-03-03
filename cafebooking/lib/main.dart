@@ -7,13 +7,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:riverpod_context/riverpod_context.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import 'Alter/setCakePrice/cakeSetMain.dart';
 import 'OrderListPackage/todayPageMain.dart';
+
+//google로그인을 위함
+final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
 void main() async {
   //For kakao oauth
