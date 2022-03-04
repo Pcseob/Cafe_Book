@@ -17,4 +17,10 @@ class CustomSignButton {
       logger.e("Apple SignIn Error");
     }
   }
+
+  Future<void> kakaoSignIn() async {
+    try {} catch (e) {
+      logger.e("KaKao SignIn Error");
+    }
+  }
 }
